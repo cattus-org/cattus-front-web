@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 
-export const API_URL = "http://ec2-52-15-64-33.us-east-2.compute.amazonaws.com";
+export const API_URL = process.env.URL_API;
 
 export const getData = async <T>(path: string, id: string = ''): Promise<T> => {
     try {
