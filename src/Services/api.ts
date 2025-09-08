@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 
-export const API_URL = process.env.URL_API;
+export const API_URL = import.meta.env.VITE_URL_API;
 
 export const getData = async <T>(path: string, id: string = ''): Promise<T> => {
     try {
