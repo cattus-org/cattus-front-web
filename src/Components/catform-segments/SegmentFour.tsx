@@ -15,7 +15,6 @@ const SegmentFour: React.FC<SegmentFourProps> = ({
   formData,
   onChange,
   onSaveAndFinalize,
-  onSaveAndContinue,
   isLoading
 }) => {
   const catName = formData.petName || 'Nome do gato';

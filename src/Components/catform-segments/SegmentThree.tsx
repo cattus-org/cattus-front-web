@@ -1,7 +1,6 @@
 import React from 'react';
 import { Animal } from '@/Services/types';
 import { Button } from '@/Components/ui/button';
-import { HelpCircle } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
 import { Textarea } from '@/Components/ui/textarea';
 

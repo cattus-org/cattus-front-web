@@ -3,7 +3,6 @@ import { Animal } from '@/Services/types';
 import { Input } from '@/Components/ui/input';
 import { Button } from '@/Components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
-import { HelpCircle } from 'lucide-react';
 import { Checkbox } from '@/Components/ui/checkbox';
 import { Label } from '@/Components/ui/label';
 

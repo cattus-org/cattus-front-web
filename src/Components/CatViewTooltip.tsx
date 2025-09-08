@@ -4,7 +4,6 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from '@/Components/ui/hover-card';
-import { Button } from '@/Components/ui/button';
 import { Star } from 'lucide-react';
 
 interface CatViewTooltipProps {

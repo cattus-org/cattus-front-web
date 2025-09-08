@@ -1,18 +1,16 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { useSidebar } from './SidebarProvider';
 
 interface SidebarNavItemProps {
   icon: ReactNode;
   label: string;
-  path: string;
   active?: boolean;
   onClick?: () => void;
 }
 
-export function SidebarNavItem({ 
-  icon, 
-  label, 
-  path, 
+export function SidebarNavItem({
+  icon,
+  label,
   active = false,
   onClick
 }: SidebarNavItemProps) {

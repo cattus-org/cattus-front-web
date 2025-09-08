@@ -177,7 +177,7 @@ const CatStatus = ({ catId, isExpanded, onToggleExpand }: CatStatusProps) => {
 
       <div className="bg-[#324250]">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px">
-          {statusData.map((section, index) => (
+          {statusData.map((section) => (
             <div key={section.id} className="bg-[#404c5a] p-4">
               <div className="flex justify-between items-center mb-2">
                 <HoverCard>

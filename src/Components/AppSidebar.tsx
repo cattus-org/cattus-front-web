@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Sidebar,
@@ -12,8 +12,8 @@ import {
   useSidebar
 } from './Sidebar';
 import { ChevronRight, Home, Cat, Camera, BarChart2, FileText, DollarSign, Star } from 'lucide-react';
-import { AnimalService } from '@/Services';
-import { Animal } from '@/Services/types';
+import AnimalService from '../Services/AnimalService';
+import { Animal } from '../Services/types';
 import Cookies from 'js-cookie';
 import { jwtDecode } from 'jwt-decode';
 
@@ -22,13 +22,7 @@ interface JwtPayload {
   [key: string]: any;
 }
 
-interface CatEntry {
-  id: string;
-  name: string;
-  age: number;
-  gender: string;
-  imageUrl: string;
-}
+
 
 interface AppSidebarProps {
   currentPage: 'home' | 'cats' | 'cameras' | 'stats' | 'reports' | 'membership';
@@ -52,16 +46,18 @@ const AppSidebar = ({ currentPage, onNavigate }: AppSidebarProps) => {
   useEffect(() => {
     const fetchMarkedCats = async () => {
       try {
-        const token = Cookies.get('token') || '';
-
-        const decoded = jwtDecode<JwtPayload>(token);
-        const companyId = decoded.company || '';
-
-        const cats = await AnimalService.getMarkedAnimals(companyId)
-        setMarkedCats(cats);
-        setLoading(false);
+        setLoading(true);
+        const token = Cookies.get('token');
+        if (token) {
+          const decoded: JwtPayload = jwtDecode(token);
+          if (decoded.company) {
+            const cats = await AnimalService.getMarkedAnimals(decoded.company);
+            setMarkedCats(cats);
+          }
+        }
       } catch (error) {
-        console.error('Erro ao carregar gatos marcados', error);
+        console.error('Failed to fetch marked cats:', error);
+      } finally {
         setLoading(false);
       }
     };
@@ -94,7 +90,6 @@ const AppSidebar = ({ currentPage, onNavigate }: AppSidebarProps) => {
                 key={index}
                 icon={item.icon}
                 label={item.label}
-                path={item.path}
                 active={item.page === currentPage}
                 onClick={() => handleNavigation(item.page, item.path)}
               />

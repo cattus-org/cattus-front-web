@@ -105,10 +105,10 @@ const Header = () => {
       </form>
      
       <div className="flex items-center space-x-4">
-        {userCompany && (
-          <Notification token={Cookies.get('token')} company={userCompany} />
+        {userCompany && Cookies.get('token') && (
+          <Notification token={Cookies.get('token')!} company={userCompany} />
         )}
-       
+
         <div className="relative">
           <Button
             ref={profileBtnRef}

@@ -1,4 +1,3 @@
-import { postDataJSON } from './api';
 import { toast } from 'react-toastify';
 
 interface FeedbackResponse {
@@ -13,7 +12,7 @@ interface FeedbackData {
   company?: string; 
 }
 
-const submitFeedback = async (data: FeedbackData): Promise<FeedbackResponse> => {
+const submitFeedback = async (_data: FeedbackData): Promise<FeedbackResponse> => {
   try {
     // Placeholder
     // return await postDataJSON<FeedbackResponse>('/feedback/create', data, "Feedback enviado com sucesso!");

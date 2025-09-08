@@ -9,7 +9,7 @@ interface LayoutProps {
   onNavigate?: (page: 'home' | 'cats' | 'cameras' | 'stats' | 'reports' | 'membership') => void;
 }
 
-const Layout = ({ children, currentPage, onNavigate }: LayoutProps) => {
+const Layout = ({ children, onNavigate }: LayoutProps) => {
   const location = useLocation();
   
   const getCurrentPageFromPath = (): 'home' | 'cats' | 'cameras' | 'stats' | 'reports' | 'membership' => {

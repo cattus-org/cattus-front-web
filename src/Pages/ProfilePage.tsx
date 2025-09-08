@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import Cookies from 'js-cookie';
 import { EmployeeData, CompanyData } from '@/Components/Profile';
-import { EmployeeService, CompanyService } from '@/Services';
-import { Employee, Company } from '@/Services/types';
+import { EmployeeService } from '@/Services';
+import { Company } from '@/Services/types';
 
 interface JwtPayload {
   id?: string;

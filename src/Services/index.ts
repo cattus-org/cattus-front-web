@@ -7,7 +7,7 @@ import NotificationService from './NotificationService';
 import CompanyService from './CompanyService';
 import EmployeeService from './EmployeeService';
 import ReportService from './ReportService';
-import FeedbackService from './feedbackService';
+import FeedbackService from './FeedbackService';
 
 export {
     api,

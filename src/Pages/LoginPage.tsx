@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import { toast } from 'react-toastify';
+
 import { AuthService } from '../Services';
 import { Switch } from '../Components/ui/switch';
 import { Button } from '../Components/ui/button';

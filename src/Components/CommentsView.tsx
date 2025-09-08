@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Dialog,
   DialogContent,
   DialogHeader,
-  DialogTitle,
-  DialogClose
+  DialogTitle
 } from '@/Components/ui/dialog';
 import { Button } from '@/Components/ui/button';
 

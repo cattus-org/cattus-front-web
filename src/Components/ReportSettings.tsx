@@ -3,8 +3,7 @@ import {
   Dialog,
   DialogContent,
   DialogHeader,
-  DialogTitle,
-  DialogClose
+  DialogTitle
 } from '@/Components/ui/dialog';
 import { Switch } from '@/Components/ui/switch';
 import { Button } from '@/Components/ui/button';
@@ -12,14 +11,12 @@ import { Button } from '@/Components/ui/button';
 interface ReportSettingsProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  catId: string;
   onGenerateReport: (options: string[]) => void;
 }
 
 const ReportSettings: React.FC<ReportSettingsProps> = ({
   open,
   onOpenChange,
-  catId,
   onGenerateReport
 }) => {
   const [options, setOptions] = useState({

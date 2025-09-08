@@ -18,7 +18,7 @@ const CatData = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [reportModalOpen, setReportModalOpen] = useState(false);
-  const [reportLoading, setReportLoading] = useState(false);
+  // const [reportLoading, setReportLoading] = useState(false); // Removed unused state
   
   const [sectionsState, setSectionsState] = useState({
     profile: true,
@@ -39,14 +39,14 @@ const CatData = () => {
       return;
     }
     try {
-      setReportLoading(true);
+      // setReportLoading(true); // Removed since reportLoading state is no longer used
       await ReportService.getAnimalReport(cat._id, options);
       toast.success('Relatório gerado com sucesso!');
       setReportModalOpen(false);
     } catch (error) {
       console.error('Error generating report:', error);
     } finally {
-      setReportLoading(false);
+      // setReportLoading(false); // Removed since reportLoading state is no longer used
     }
   };
 
@@ -153,8 +153,7 @@ const CatData = () => {
           onToggleExpand={() => toggleSection('status')}
         />
         
-        <CatActivities 
-          catId={cat._id}
+        <CatActivities
           isExpanded={sectionsState.activities}
           onToggleExpand={() => toggleSection('activities')}
           activities={activities}
@@ -164,7 +163,6 @@ const CatData = () => {
       <ReportSettings
         open={reportModalOpen}
         onOpenChange={setReportModalOpen}
-        catId={cat._id}
         onGenerateReport={generateReport}
       />
     </div>

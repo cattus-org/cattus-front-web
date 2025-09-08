@@ -2,11 +2,7 @@ import { API_URL } from './api';
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 
-interface ReportOptions {
-  profile?: boolean;
-  status?: boolean;
-  activities?: boolean;
-}
+
 
 const getAnimalReport = async (animalId: string, options: string[] = ['profile']): Promise<void> => {
   try {

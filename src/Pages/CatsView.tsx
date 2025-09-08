@@ -21,8 +21,7 @@ const CatsView = () => {
   const [cats, setCats] = useState<Animal[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [markedCats, setMarkedCats] = useState<Record<string, boolean>>({});
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  // const [searchQuery, setSearchQuery] = useState<string>(''); // Removed unused state
   const navigate = useNavigate();
   
   useEffect(() => {
@@ -65,12 +64,12 @@ const CatsView = () => {
 
   useEffect(() => {
     const searchHandler = (e: CustomEvent) => {
-      setSearchQuery(e.detail.query);
+      // setSearchQuery(e.detail.query); // Removed since searchQuery state is no longer used
       handleSearch(e.detail.query);
     };
-    
+
     document.addEventListener('cat-search', searchHandler as EventListener);
-    
+
     return () => {
       document.removeEventListener('cat-search', searchHandler as EventListener);
     };

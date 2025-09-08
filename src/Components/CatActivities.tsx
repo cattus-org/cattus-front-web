@@ -19,13 +19,13 @@ import {
 import { Activity } from '@/Services/types';
 
 interface CatActivitiesProps {
-  catId: string;
   isExpanded: boolean;
   onToggleExpand: () => void;
   activities: Activity[];
+
 }
 
-const CatActivities = ({ catId, isExpanded, onToggleExpand, activities = [] }: CatActivitiesProps) => {
+const CatActivities = ({ isExpanded, onToggleExpand, activities = [] }: CatActivitiesProps) => {
   const [filteredActivities, setFilteredActivities] = useState<Activity[]>(activities);
   const [filterType, setFilterType] = useState<string>('all');
   const [dateRange, setDateRange] = useState<{start: string; end: string}>({

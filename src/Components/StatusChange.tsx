@@ -1,13 +1,10 @@
-import React from 'react';
 import { ArrowUp, ArrowDown } from 'lucide-react';
-
 type StatusType = 'critical' | 'attention' | 'healthy';
 
 interface StatusChangeProps {
-  catId: string;
   catName: string;
   catImageUrl: string;
-  prevStatus?: StatusType;
+  prevStatus: StatusType;
   newStatus: StatusType;
   reason: string;
   date: string;
@@ -17,7 +14,6 @@ interface StatusChangeProps {
 }
 
 const StatusChange = ({
-  catId,
   catName,
   catImageUrl,
   prevStatus,

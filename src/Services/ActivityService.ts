@@ -1,4 +1,4 @@
-import { get } from 'http';
+
 import { getData, postDataJSON, deleteData } from './api';
 import { Activity, ActivityResponse } from './types';
 

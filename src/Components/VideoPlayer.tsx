@@ -11,7 +11,7 @@ interface VideoPlayerProps {
 
 const VideoPlayer = ({ isActive, imageUrl, title, className = "" }: VideoPlayerProps) => {
   const [isPlaying, setIsPlaying] = useState(true);
-  const [isFullscreen, setIsFullscreen] = useState(false);
+  // const [isFullscreen, setIsFullscreen] = useState(false); // Removed unused state
   
   useEffect(() => {
     if (isActive) {
@@ -33,20 +33,18 @@ const VideoPlayer = ({ isActive, imageUrl, title, className = "" }: VideoPlayerP
       videoContainer.requestFullscreen().catch(err => {
         console.error(`Error attempting to enable fullscreen: ${err.message}`);
       });
-      setIsFullscreen(true);
     } else {
       document.exitFullscreen();
-      setIsFullscreen(false);
     }
   };
 
   useEffect(() => {
     const handleFullscreenChange = () => {
-      setIsFullscreen(!!document.fullscreenElement);
+      // Removed since isFullscreen state is no longer used
     };
 
     document.addEventListener('fullscreenchange', handleFullscreenChange);
-    
+
     return () => {
       document.removeEventListener('fullscreenchange', handleFullscreenChange);
     };
