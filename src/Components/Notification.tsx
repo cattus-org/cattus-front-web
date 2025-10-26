@@ -172,12 +172,6 @@ const Notification: React.FC<NotificationProps> = ({ token, companyId }) => {
     setIsOpen(!isOpen);
   };
 
-  const markAllAsRead = () => {
-    setNotifications(
-      notifications.map(notif => ({ ...notif, isRead: true }))
-    );
-  };
-
   const filteredNotifications = showUnreadOnly
     ? notifications.filter(notif => !notif.isRead)
     : notifications;
@@ -225,11 +219,10 @@ const Notification: React.FC<NotificationProps> = ({ token, companyId }) => {
               filteredNotifications.map(notification => (
                 <StatusChange
                   key={notification.id}
-                  catId={notification.catId}
                   catName={notification.catName}
                   catImageUrl={notification.catImageUrl}
-                  prevStatus={notification.prevStatus}
-                  newStatus={notification.newStatus}
+                  prevStatus={notification.prevStatus as StatusType}
+                  newStatus={notification.newStatus as StatusType}
                   reason={notification.reason}
                   date={notification.date}
                   time={notification.time}

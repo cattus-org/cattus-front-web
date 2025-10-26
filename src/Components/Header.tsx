@@ -117,7 +117,7 @@ const Header = () => {
         {userCompanyId && (
           <Notification token={Cookies.get('token') || ''} companyId={userCompanyId} />
         )}
-       
+
         <div className="relative">
           <Button
             ref={profileBtnRef}

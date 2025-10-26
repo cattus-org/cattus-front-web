@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Sidebar,
@@ -22,13 +22,7 @@ interface JwtPayload {
   [key: string]: any;
 }
 
-interface CatEntry {
-  id: string;
-  name: string;
-  age: number;
-  gender: string;
-  imageUrl: string;
-}
+
 
 interface AppSidebarProps {
   currentPage: 'home' | 'cats' | 'cameras' | 'stats' | 'reports';
@@ -55,7 +49,8 @@ const AppSidebar = ({ currentPage, onNavigate }: AppSidebarProps) => {
         setMarkedCats(cats);
         setLoading(false);
       } catch (error) {
-        console.error('Erro ao carregar gatos marcados', error);
+        console.error('Failed to fetch marked cats:', error);
+      } finally {
         setLoading(false);
       }
     };
@@ -88,7 +83,6 @@ const AppSidebar = ({ currentPage, onNavigate }: AppSidebarProps) => {
                 key={index}
                 icon={item.icon}
                 label={item.label}
-                path={item.path}
                 active={item.page === currentPage}
                 onClick={() => handleNavigation(item.page, item.path)}
               />

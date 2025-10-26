@@ -106,7 +106,7 @@ const CatForm = () => {
           };
           
           setCompletedSegments(completed);
-          calculateProgress(catData, completed);
+          calculateProgress(catData);
           setIsLoading(false);
         } catch (error) {
           console.error('Error fetching cat data:', error);
@@ -119,7 +119,7 @@ const CatForm = () => {
     }
   }, [id]);
 
-  const calculateProgress = (data: Partial<Animal> = formData, segments = completedSegments) => {
+  const calculateProgress = (data: Partial<Animal> = formData) => {
     let filledFields = 0;
     let totalFields = 7; // Total optional fields we're tracking
 
@@ -148,8 +148,8 @@ const CatForm = () => {
     
     const updatedSegments = { ...completedSegments, [segment]: isCompleted };
     setCompletedSegments(updatedSegments);
-    
-    calculateProgress(updatedData, updatedSegments);
+
+    calculateProgress(updatedData);
   };
 
   const saveFormData = async (andContinue: boolean = false) => {

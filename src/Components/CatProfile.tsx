@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Button } from '@/Components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import { ChevronDown, ChevronUp, Star } from 'lucide-react';

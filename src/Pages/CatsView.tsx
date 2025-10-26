@@ -49,9 +49,9 @@ const CatsView = () => {
     const searchHandler = (e: CustomEvent) => {
       handleSearch(e.detail.query);
     };
-    
+
     document.addEventListener('cat-search', searchHandler as EventListener);
-    
+
     return () => {
       document.removeEventListener('cat-search', searchHandler as EventListener);
     };

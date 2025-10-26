@@ -1,4 +1,3 @@
-import { postDataJSON } from './api';
 import { toast } from 'react-toastify';
 import { ApiResponse, Feedback } from './types';
 

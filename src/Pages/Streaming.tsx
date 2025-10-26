@@ -5,8 +5,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Badge } from '@/Components/ui/badge';
 import VideoPlayer from '@/Components/VideoPlayer';
 import ActivityList, { ActivityItem } from '@/Components/ActivityList';
-import { CameraService, ActivityService, AnimalService } from '@/Services';
-import { Camera, Activity, Animal } from '@/Services/types';
+import { CameraService, ActivityService } from '@/Services';
+import { Camera, Animal } from '@/Services/types';
 import { jwtDecode } from 'jwt-decode';
 import Cookies from 'js-cookie';
 
