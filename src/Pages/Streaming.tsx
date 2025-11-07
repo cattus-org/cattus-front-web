@@ -60,14 +60,15 @@ const Streaming = () => {
   }, [id]);
 
   useEffect(() => {
-    const fetchCameraActivities = async () => {
+    const fetchCameraActivities = async () => {      
       if (!id) return;
       
       try {
         setLoadingActivities(true);
-        // TODO: Implement camera-specific activities endpoint
-        // For now, fetch all activities and filter client-side or use a placeholder
-        setCatActivities([]);
+        const cameraActivitiesData = await ActivityService.getByCamera(id);
+        console.log('Camera Activities Data:', cameraActivitiesData);
+        
+        setCatActivities(cameraActivitiesData);
         setLoadingActivities(false);
       } catch (error) {
         console.error('Error fetching camera activities:', error);
