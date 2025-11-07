@@ -89,12 +89,19 @@ const ActivityList = ({
                 style={{paddingTop: 0, paddingBottom: 0}}
               >
                 <div className="flex items-center justify-between px-4 pt-4">
-                  <span className="text-sm text-gray-300 font-medium">
+                  <span className="text-sm text-gray-300 font-medium flex items-center gap-2">
                     {(() => {
                       if (item.startedAt) {
                         const d = new Date(item.startedAt);
                         const pad = (n: number) => n.toString().padStart(2, '0');
-                        return `${pad(d.getDate())}/${pad(d.getMonth() + 1)} - ${pad(d.getHours())}h${pad(d.getMinutes())}`;
+                        const timeStr = `${pad(d.getDate())}/${pad(d.getMonth() + 1)} - ${pad(d.getHours())}h${pad(d.getMinutes())}`;
+                        if (item.startedAt === item.endedAt) {
+                          return <>
+                            {timeStr}
+                            <span className="ml-2 px-2 py-0.5 rounded bg-yellow-600 text-yellow-100 text-xs font-semibold">Em andamento</span>
+                          </>;
+                        }
+                        return timeStr;
                       }
                       return '';
                     })()}
@@ -158,6 +165,24 @@ const ActivityList = ({
                           return '';
                         })()}
                       </p>
+                      {item.startedAt !== item.endedAt && item.startedAt && item.endedAt && (
+                        <p className="mb-1">
+                          Duração: {(() => {
+                            const start = new Date(item.startedAt).getTime();
+                            const end = new Date(item.endedAt).getTime();
+                            const diffMs = end - start;
+                            if (diffMs > 0) {
+                              const totalSeconds = Math.floor(diffMs / 1000);
+                              const hours = Math.floor(totalSeconds / 3600);
+                              const minutes = Math.floor((totalSeconds % 3600) / 60);
+                              const seconds = totalSeconds % 60;
+                              const pad = (n: number) => n.toString().padStart(2, '0');
+                              return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+                            }
+                            return '00:00:00';
+                          })()}
+                        </p>
+                      )}
                       <p className="mb-1">Estado: {item.cat.status || 'Status desconhecido'}</p>
                       <p className="mb-1">Localização: {item.camera.name || 'Localização desconhecida'}</p>
                       {item.title && (
