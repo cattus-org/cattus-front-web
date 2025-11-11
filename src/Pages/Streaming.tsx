@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Lock } from 'lucide-react';
 import { Button } from '@/Components/ui/button';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -19,6 +19,9 @@ const Streaming = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [isUserAdmin, setIsUserAdmin] = useState(false);
+
+  const socketRef = useRef<WebSocket | null>(null);
+  
   
   const [camera, setCamera] = useState<Camera | null>(null);
   const [loading, setLoading] = useState(true);
@@ -60,14 +63,12 @@ const Streaming = () => {
   }, [id]);
 
   useEffect(() => {
-    const fetchCameraActivities = async () => {
+    const fetchCameraActivities = async (showLoading = true) => {      
       if (!id) return;
-      
       try {
-        setLoadingActivities(true);
-        // TODO: Implement camera-specific activities endpoint
-        // For now, fetch all activities and filter client-side or use a placeholder
-        setCatActivities([]);
+        if (showLoading) setLoadingActivities(true);
+        const cameraActivitiesData = await ActivityService.getByCamera(id);
+        setCatActivities(cameraActivitiesData);
         setLoadingActivities(false);
       } catch (error) {
         console.error('Error fetching camera activities:', error);
@@ -76,7 +77,37 @@ const Streaming = () => {
     };
     
     if (camera) {
-      fetchCameraActivities();
+      // Carrega atividades iniciais com loading
+      fetchCameraActivities(true);
+
+      const ws = new WebSocket(`ws://localhost:8001/ws/activities?cameraId=${camera.id}`);
+      socketRef.current = ws;
+
+      ws.onopen = () => {
+        console.log('[WS] Conectado ao servidor');
+      };
+
+      ws.onmessage = async (event) => {
+        console.log('[WS] Mensagem recebida:', event.data);
+        try {
+          // Atualiza atividades sem mostrar loading
+          fetchCameraActivities(false);
+        } catch (error) {
+          console.error('[WS] Erro ao processar mensagem:', error);
+        }
+      };
+
+      ws.onclose = () => {
+        console.log('[WS] Conexão encerrada');
+      };
+
+      ws.onerror = (e) => {
+        console.error('[WS] Erro:', e);
+      };
+
+      return () => {
+        ws.close();
+      };
     }
   }, [camera, id]);
 
