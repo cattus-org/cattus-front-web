@@ -94,14 +94,18 @@ const ActivityList = ({
                       if (item.startedAt) {
                         const d = new Date(item.startedAt);
                         const pad = (n: number) => n.toString().padStart(2, '0');
-                        const timeStr = `${pad(d.getDate())}/${pad(d.getMonth() + 1)} - ${pad(d.getHours())}h${pad(d.getMinutes())}`;
+                        const timeStr = `${pad(d.getDate())}/${pad(d.getMonth() + 1)} - ${pad(d.getHours()+3)}h${pad(d.getMinutes())}`;
                         if (item.startedAt === item.endedAt) {
                           return <>
                             {timeStr}
                             <span className="ml-2 px-2 py-0.5 rounded bg-yellow-600 text-yellow-100 text-xs font-semibold">Em andamento</span>
                           </>;
                         }
-                        return timeStr;
+                        // Se não está em andamento, está finalizada
+                        return <>
+                          {timeStr}
+                          <span className="ml-2 px-2 py-0.5 rounded bg-green-700 text-green-100 text-xs font-semibold">Finalizada</span>
+                        </>;
                       }
                       return '';
                     })()}
