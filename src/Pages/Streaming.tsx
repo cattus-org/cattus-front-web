@@ -6,7 +6,7 @@ import { Badge } from '@/Components/ui/badge';
 import VideoPlayer from '@/Components/VideoPlayer';
 import ActivityList, { ActivityItem } from '@/Components/ActivityList';
 import { CameraService, ActivityService } from '@/Services';
-import { Camera, Animal } from '@/Services/types';
+import { Camera } from '@/Services/types';
 import { jwtDecode } from 'jwt-decode';
 import Cookies from 'js-cookie';
 
@@ -28,6 +28,9 @@ const Streaming = () => {
   const [error, setError] = useState<string | null>(null);
   const [catActivities, setCatActivities] = useState<ActivityItem[]>([]);
   const [loadingActivities, setLoadingActivities] = useState(true);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [hasMoreActivities, setHasMoreActivities] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
   
   useEffect(() => {
     const token = Cookies.get('token');
@@ -63,22 +66,35 @@ const Streaming = () => {
   }, [id]);
 
   useEffect(() => {
-    const fetchCameraActivities = async (showLoading = true) => {      
+    const fetchCameraActivities = async (showLoading = true, page = 0, append = false) => {      
       if (!id) return;
       try {
         if (showLoading) setLoadingActivities(true);
-        const cameraActivitiesData = await ActivityService.getByCamera(id);
-        setCatActivities(cameraActivitiesData);
+        if (!append) setLoadingMore(false);
+        
+        const offset = page * 5;
+        const cameraActivitiesData = await ActivityService.getByCamera(id, offset, 5);
+        
+        if (append) {
+          setCatActivities(prev => [...prev, ...cameraActivitiesData]);
+        } else {
+          setCatActivities(cameraActivitiesData);
+        }
+        
+        setHasMoreActivities(cameraActivitiesData.length === 5);
         setLoadingActivities(false);
+        setLoadingMore(false);
       } catch (error) {
         console.error('Error fetching camera activities:', error);
         setLoadingActivities(false);
+        setLoadingMore(false);
       }
     };
     
     if (camera) {
       // Carrega atividades iniciais com loading
-      fetchCameraActivities(true);
+      fetchCameraActivities(true, 0, false);
+      setCurrentPage(0);
 
       const ws = new WebSocket(`ws://localhost:8001/ws/activities?cameraId=${camera.id}`);
       socketRef.current = ws;
@@ -90,8 +106,8 @@ const Streaming = () => {
       ws.onmessage = async (event) => {
         console.log('[WS] Mensagem recebida:', event.data);
         try {
-          // Atualiza atividades sem mostrar loading
-          fetchCameraActivities(false);
+          // Atualiza atividades sem mostrar loading, sempre da primeira página
+          fetchCameraActivities(false, 0, false);
         } catch (error) {
           console.error('[WS] Erro ao processar mensagem:', error);
         }
@@ -202,43 +218,34 @@ const Streaming = () => {
             maxHeight="500px"
             loading={loadingActivities}
             emptyMessage="Não há atividades registradas nesta câmera"
+            hasMore={hasMoreActivities}
+            isLoadingMore={loadingMore}
+            onLoadMore={() => {
+              setLoadingMore(true);
+              const nextPage = currentPage + 1;
+              setCurrentPage(nextPage);
+              
+              const fetchCameraActivities = async () => {
+                if (!id) return;
+                try {
+                  const offset = nextPage * 5;
+                  const cameraActivitiesData = await ActivityService.getByCamera(id, offset, 5);
+                  setCatActivities(prev => [...prev, ...cameraActivitiesData]);
+                  setHasMoreActivities(cameraActivitiesData.length === 5);
+                  setLoadingMore(false);
+                } catch (error) {
+                  console.error('Error fetching more activities:', error);
+                  setLoadingMore(false);
+                }
+              };
+              
+              fetchCameraActivities();
+            }}
           />
         </div>
       </div>
     </div>
   );
-};
-
-const calculateAge = (birthDate?: Date | string): number => {
-  if (!birthDate) return 0;
-  
-  const birth = new Date(birthDate);
-  const today = new Date();
-  let age = today.getFullYear() - birth.getFullYear();
-  const monthDiff = today.getMonth() - birth.getMonth();
-  
-  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
-    age--;
-  }
-  
-  return age;
-};
-
-const getStatusText = (status?: string): string => {
-  if (!status) return 'Saudável';
-  
-  // Handle both old numeric values and new enum values
-  switch (status) {
-    // Old numeric values (legacy support)
-    case '0': return 'Saudável';
-    case '1': return 'Em atenção';
-    case '2': return 'Crítico';
-    // New enum values
-    case 'ok': return 'Saudável';
-    case 'alert': return 'Em atenção';
-    case 'danger': return 'Crítico';
-    default: return 'Saudável';
-  }
 };
 
 export default Streaming;

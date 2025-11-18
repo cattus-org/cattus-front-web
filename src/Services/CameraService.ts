@@ -2,7 +2,7 @@ import { getData, postDataJSON, updateData, deleteData } from './api';
 import { Camera, CameraResponse } from './types';
 
 const getAll = (offset: number = 0, limit: number = 50): Promise<Camera[]> => 
-    getData<Camera[]>(`/cameras?offset=${offset}&limit=${limit}`);
+    getData<Camera[]>(`/cameras`);
 
 const getOne = (id: string | number): Promise<Camera> => 
     getData<Camera>('/cameras/', id.toString());

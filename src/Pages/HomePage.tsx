@@ -35,19 +35,8 @@ const HomePage = () => {
     cameras: true,
     activities: true
   });
-  const [companyId, setCompanyId] = useState<string>('');
 
-  const formatActivityDateTime = useCallback((date: Date): { date: string; time: string } => {
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    
-    return {
-      date: `${day}/${month}`,
-      time: `${hours}:${minutes}`
-    };
-  }, []);
+
 
   const calculateAge = useCallback((birthDate?: Date | string): number => {
     if (!birthDate) return 0;
@@ -81,12 +70,34 @@ const HomePage = () => {
     }
   }, []);
 
-  const fetchRecentActivities = useCallback(async (companyId: string): Promise<ActivityItem[]> => {
+  const fetchRecentActivities = useCallback(async (): Promise<ActivityItem[]> => {
     try {
-      // Fetch activities with cat data included (backend includes relations: ['cat'])
-      const activities = await ActivityService.getByCompany(companyId, 0, 10);
+      // Fetch all cameras
+      const allCameras = await CameraService.getAll();
+      const activeCameras = allCameras.filter(camera => !camera.deleted);
       
-      if (!activities || activities.length === 0) {
+      if (activeCameras.length === 0) {
+        return [];
+      }
+
+      // Fetch activities from all cameras
+      let allActivities: ActivityItem[] = [];
+      
+      for (const camera of activeCameras) {
+        try {
+          const cameraId = camera.id || camera._id;
+          if (!cameraId) {
+            continue;
+          }
+          
+          const activities = await ActivityService.getByCamera(cameraId, 0, 50);
+          allActivities = [...allActivities, ...activities];
+        } catch (error) {
+          // Silently skip cameras with errors
+        }
+      }
+      
+      if (!allActivities || allActivities.length === 0) {
         return [];
       }
 
@@ -99,33 +110,40 @@ const HomePage = () => {
 
       const locations = ['Área comum', 'Área de descanso', 'Quintal', 'Cozinha'];
 
-      const formattedActivities: ActivityItem[] = activities
-        .filter((activity) => activity.cat) // Only include activities with cat data
+      const formattedActivities: ActivityItem[] = allActivities
+        .filter((activity) => !!activity.cat)
         .map((activity) => {
-          const startedAt = new Date(activity.startedAt);
-          const { date, time } = formatActivityDateTime(startedAt);
-          
           return {
             id: activity.id.toString(),
             title: activity.cat.name || activity.cat.petName || 'Unknown Cat',
             subtitle: `${activity.cat.sex || activity.cat.petGender} · ${calculateAge(activity.cat.birthDate || activity.cat.petBirth)} anos`,
             imageUrl: activity.cat.picture || activity.cat.petPicture || '/imgs/cat_sample.jpg',
-            timestamp: { date, time },
-            catId: activity.cat.id?.toString() || activity.cat._id || '',
+            startedAt: activity.startedAt?.toString() || new Date().toISOString(),
+            endedAt: activity.endedAt?.toString(),
+            cat: activity.cat,
+            camera: activity.camera || { id: 0, url: '', name: '' },
             metadata: {
               status: getStatusText(activity.cat.status || activity.cat.petStatus?.petCurrentStatus),
               location: locations[Math.floor(Math.random() * locations.length)],
               activityName: activityTitles[activity.title] || activity.title
             }
           };
-        });
+        })
+        // Sort by most recent first
+        .sort((a, b) => {
+          const dateA = new Date(a.startedAt || 0).getTime();
+          const dateB = new Date(b.startedAt || 0).getTime();
+          return dateB - dateA;
+        })
+        // Take only the first 10
+        .slice(0, 10);
 
       return formattedActivities;
     } catch (error) {
-      console.error('Error fetching real activities:', error);
+      console.error('Error fetching activities:', error);
       return [];
     }
-  }, [formatActivityDateTime, calculateAge, getStatusText]);
+  }, [calculateAge, getStatusText]);
 
   useEffect(() => {
     const token = Cookies.get('token');
@@ -133,10 +151,6 @@ const HomePage = () => {
       try {
         const decoded = jwtDecode<JwtPayload>(token);
         setEmployeeName(decoded.name || 'Funcionário');
-        // Extract company ID from JWT
-        if (decoded.company && typeof decoded.company === 'object') {
-          setCompanyId(decoded.company.id.toString());
-        }
       } catch (error) {
         console.error('Error decoding token:', error);
       }
@@ -144,11 +158,9 @@ const HomePage = () => {
   }, []);
 
   useEffect(() => {
-    if (!companyId) return;
-
     const fetchActivities = async () => {
       try {
-        const recentActivities = await fetchRecentActivities(companyId);
+        const recentActivities = await fetchRecentActivities();
         setActivities(recentActivities);
         setLoading(prev => ({ ...prev, activities: false }));
       } catch (error) {
@@ -158,7 +170,7 @@ const HomePage = () => {
     };
 
     fetchActivities();
-  }, [companyId, fetchRecentActivities]);
+  }, [fetchRecentActivities]);
 
   useEffect(() => {
     const fetchMarkedCats = async () => {

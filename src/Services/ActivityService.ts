@@ -5,11 +5,11 @@ import { Activity, ActivityResponse } from './types';
 const getByCat = (catId: string | number, offset: number = 0, limit: number = 50): Promise<Activity[]> => 
     getData<Activity[]>(`/activities/${catId}/cat?offset=${offset}&limit=${limit}`);
 
-const getByCamera = (cameraId: string | number): Promise<ActivityItem[]> => 
+const getByCamera = (cameraId: string | number, offset: number = 0, limit: number = 5): Promise<ActivityItem[]> => 
     getData<ActivityItem[]>(`/activities/camera/${cameraId}`);
 
 const getByCompany = (companyId: string | number, offset: number = 0, limit: number = 50): Promise<Activity[]> => 
-    getData<Activity[]>(`/activities/${companyId}/company?offset=${offset}&limit=${limit}`);
+    getData<Activity[]>(`/activities/${companyId}/company?offset=${offset}&limit=${limit}&relations=cat,camera`);
 
 const create = (data: Partial<Activity>): Promise<ActivityResponse> => 
     postDataJSON<ActivityResponse>('/activities', data, "Atividade registrada com sucesso!");

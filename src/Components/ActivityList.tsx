@@ -5,6 +5,14 @@ import { Button } from '@/Components/ui/button';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { Animal, Camera } from '@/Services';
 
+// Função para ajustar timezone (adiciona 3 horas para corrigir o offset)
+const adjustTimeZone = (dateString: string | Date): Date => {
+  const date = new Date(dateString);
+  // Adiciona 3 horas (3 * 60 * 60 * 1000 ms)
+  date.setHours(date.getHours() + 3);
+  return date;
+};
+
 export interface ActivityItem {
   id: string;
   title: string;
@@ -25,6 +33,9 @@ interface ActivityListProps {
   onItemClick?: (item: ActivityItem) => void;
   emptyMessage?: string;
   loading?: boolean;
+  hasMore?: boolean;
+  isLoadingMore?: boolean;
+  onLoadMore?: () => void;
 }
 
 const ActivityList = ({
@@ -33,7 +44,10 @@ const ActivityList = ({
   maxHeight = "calc(100vh-260px)",
   onItemClick,
   emptyMessage = "Não há atividades para exibir",
-  loading = false
+  loading = false,
+  hasMore = false,
+  isLoadingMore = false,
+  onLoadMore
 }: ActivityListProps) => {
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({});
   const navigate = useNavigate();
@@ -92,9 +106,20 @@ const ActivityList = ({
                   <span className="text-sm text-gray-300 font-medium flex items-center gap-2">
                     {(() => {
                       if (item.startedAt) {
-                        const d = new Date(item.startedAt);
-                        const pad = (n: number) => n.toString().padStart(2, '0');
-                        const timeStr = `${pad(d.getDate())}/${pad(d.getMonth() + 1)} - ${pad(d.getHours()+3)}h${pad(d.getMinutes())}`;
+                        const d = adjustTimeZone(item.startedAt);
+                        const formatter = new Intl.DateTimeFormat('pt-BR', {
+                          day: '2-digit',
+                          month: '2-digit',
+                          hour: '2-digit',
+                          minute: '2-digit',
+                          hour12: false
+                        });
+                        const parts = formatter.formatToParts(d);
+                        const day = parts.find(p => p.type === 'day')?.value;
+                        const month = parts.find(p => p.type === 'month')?.value;
+                        const hour = parts.find(p => p.type === 'hour')?.value;
+                        const minute = parts.find(p => p.type === 'minute')?.value;
+                        const timeStr = `${day}/${month} - ${hour}h${minute}`;
                         if (item.startedAt === item.endedAt) {
                           return <>
                             {timeStr}
@@ -160,11 +185,17 @@ const ActivityList = ({
                       <p className="mb-1">
                         Última aparição: {(() => {
                           if (item.endedAt) {
-                            const d = new Date(item.endedAt);
-                            const pad = (n: number) => n.toString().padStart(2, '0');
-                            const dateStr = `${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()}`;
-                            const timeStr = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
-                            return `${dateStr} às ${timeStr}`;
+                            const d = adjustTimeZone(item.endedAt);
+                            const formatter = new Intl.DateTimeFormat('pt-BR', {
+                              day: '2-digit',
+                              month: '2-digit',
+                              year: 'numeric',
+                              hour: '2-digit',
+                              minute: '2-digit',
+                              second: '2-digit',
+                              hour12: false
+                            });
+                            return `${formatter.format(d)}`;
                           }
                           return '';
                         })()}
@@ -200,6 +231,17 @@ const ActivityList = ({
           ) : (
             <div className="p-4 text-center text-gray-400">
               {emptyMessage}
+            </div>
+          )}
+          {hasMore && (
+            <div className="p-4 text-center">
+              <Button
+                onClick={onLoadMore}
+                disabled={isLoadingMore}
+                className="bg-purple-600 hover:bg-purple-700 text-white"
+              >
+                {isLoadingMore ? 'Carregando...' : 'Carregar Mais'}
+              </Button>
             </div>
           )}
         </div>
