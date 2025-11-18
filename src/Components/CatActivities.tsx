@@ -18,6 +18,14 @@ import {
 } from "@/Components/ui/table";
 import { Activity } from '@/Services/types';
 
+// Function to adjust timezone (adds 3 hours to correct the offset)
+const adjustTimeZone = (dateString: string | Date): Date => {
+  const date = new Date(dateString);
+  // Adiciona 3 horas (3 * 60 * 60 * 1000 ms)
+  date.setHours(date.getHours() + 3);
+  return date;
+};
+
 interface CatActivitiesProps {
   isExpanded: boolean;
   onToggleExpand: () => void;
@@ -123,7 +131,7 @@ const CatActivities = ({ isExpanded, onToggleExpand, activities = [] }: CatActiv
                 value={dateRange.start}
                 onChange={(e) => handleDateRangeChange('start', e.target.value)}
               />
-              <span className="mx-2 text-white">até</span>
+              <span className="mx-2 text-white">to</span>
               <input 
                 type="date" 
                 className="bg-gray-700 border-gray-600 text-white rounded-md p-2"
@@ -145,26 +153,26 @@ const CatActivities = ({ isExpanded, onToggleExpand, activities = [] }: CatActiv
           <Table>
             <TableHeader className="bg-[#375a3c]">
               <TableRow>
-                <TableHead className="text-white w-40">Tipo</TableHead>
-                <TableHead className="text-white w-32">Data de início</TableHead>
-                <TableHead className="text-white w-32">Hora de início</TableHead>
-                <TableHead className="text-white w-32">Data de término</TableHead>
-                <TableHead className="text-white w-32">Hora de término</TableHead>
-                <TableHead className="text-white w-24">Duração</TableHead>
+                <TableHead className="text-white w-40">Type</TableHead>
+                <TableHead className="text-white w-32">Start date</TableHead>
+                <TableHead className="text-white w-32">Start time</TableHead>
+                <TableHead className="text-white w-32">End date</TableHead>
+                <TableHead className="text-white w-32">End time</TableHead>
+                <TableHead className="text-white w-24">Duration</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody className="bg-[#324250]">
               {filteredActivities.length > 0 ? (
                 filteredActivities.map((activity) => {
-                  const startDate = new Date(activity.startedAt);
-                  const endDate = new Date(activity.endedAt || activity.startedAt);
+                  const startDate = adjustTimeZone(activity.startedAt);
+                  const endDate = adjustTimeZone(activity.endedAt || activity.startedAt);
                   const duration = calculateDuration(startDate, endDate);
                   
                   const activityTitleMap: Record<string, string> = {
-                    'eat': 'Alimentação',
-                    'sleep': 'Soneca',
-                    'defecate': 'Defecando',
-                    'urinate': 'Urinando'
+                    'eat': 'Eating',
+                    'sleep': 'Napping',
+                    'defecate': 'Defecating',
+                    'urinate': 'Urinating'
                   };
                   
                   return (

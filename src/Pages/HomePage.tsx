@@ -116,7 +116,7 @@ const HomePage = () => {
           return {
             id: activity.id.toString(),
             title: activity.cat.name || activity.cat.petName || 'Unknown Cat',
-            subtitle: `${activity.cat.sex || activity.cat.petGender} · ${calculateAge(activity.cat.birthDate || activity.cat.petBirth)} years old`,
+            subtitle: `${activity.cat.sex == 'macho' ? 'male' : 'female'} · ${calculateAge(activity.cat.birthDate || activity.cat.petBirth)} years old`,
             imageUrl: activity.cat.picture || activity.cat.petPicture || '/imgs/cat_sample.jpg',
             startedAt: activity.startedAt?.toString() || new Date().toISOString(),
             endedAt: activity.endedAt?.toString(),
@@ -313,7 +313,7 @@ const HomePage = () => {
                   key={cat.id || cat._id || ''}
                   id={cat.id?.toString() || cat._id || ''}
                   name={cat.name || cat.petName || 'Unknown'}
-                  gender={cat.sex || cat.petGender || ''}
+                  gender={cat.sex == 'macho' ? 'male' : 'female' }
                   age={calculateAge(cat.birthDate || cat.petBirth)}
                   imageUrl={cat.picture || cat.petPicture || '/imgs/cat_sample.jpg'}
                   status={mapCatStatus(cat.status || cat.petStatus?.petCurrentStatus)}

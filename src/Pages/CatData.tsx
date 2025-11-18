@@ -109,7 +109,7 @@ const CatData = () => {
     return {
       id: cat.id?.toString() || cat._id || '',
       name: cat.name || cat.petName || 'Unknown',
-      gender: cat.sex || cat.petGender || '',
+      gender: cat.sex == 'macho' ? 'male' : 'female',
       birthDate: formatDate(cat.birthDate || cat.petBirth),
       age: calculateAge(cat.birthDate || cat.petBirth),
       description: cat.observations || 'No description available',

@@ -73,7 +73,7 @@ const CatsView = () => {
       const searchLower = query.toLowerCase();
       const filtered = allCats.filter(cat => {
         const name = (cat.name || cat.petName || '').toLowerCase();
-        const gender = (cat.sex || cat.petGender || '').toLowerCase();
+        const gender = (cat.sex == 'macho' ? 'male' : 'female').toLowerCase();
         return name.includes(searchLower) || gender.includes(searchLower);
       });
       setCats(filtered);
@@ -111,7 +111,7 @@ const CatsView = () => {
           };
           
           // Support both old and new field structures
-          const petGender = cat.sex || cat.petGender || '';
+          const petGender = cat.sex == 'macho' ? 'male' : 'female';
           const mappedGender = genderMap[petGender];
           return selectedFilters.gender.includes(mappedGender);
         });
@@ -191,7 +191,7 @@ const CatsView = () => {
             key={cat.id || cat._id || ''}
             id={cat.id?.toString() || cat._id || ''}
             name={cat.name || cat.petName || 'Unknown'}
-            gender={cat.sex || cat.petGender || ''}
+            gender={cat.sex == 'macho' ? 'male' : 'female'}
             age={getAge(cat.birthDate || cat.petBirth)}
             imageUrl={cat.picture || cat.petPicture || 'imgs/cat_sample.jpg'}
             status={mapCatStatus(cat.status || cat.petStatus?.petCurrentStatus)}
