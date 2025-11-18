@@ -14,14 +14,14 @@ export const getData = async <T>(path: string, id: string = ''): Promise<T> => {
         });
 
         if (response.status === 500) {
-            toast.error("Erro interno, tente novamente mais tarde");
-            throw new Error("Erro interno, tente novamente mais tarde");
+            toast.error("Internal error, please try again later");
+            throw new Error("Internal error, please try again later");
         }
 
         if (response.status === 401) {
             Cookies.remove("token");
             window.location.href = "/login";
-            throw new Error("Sessão expirada, faça login novamente");
+            throw new Error("Session expired, please login again");
         }
 
         const data = await response.json();
@@ -47,7 +47,7 @@ export const postDataJSON = async <T>(path: string, body: any, message?: string)
         if (response.status === 401) {
             Cookies.remove("token");
             window.location.href = "/login";
-            throw new Error("Sessão expirada, faça login novamente");
+            throw new Error("Session expired, please login again");
         }
 
         const data = await response.json();
@@ -61,7 +61,7 @@ export const postDataJSON = async <T>(path: string, body: any, message?: string)
         return data as T;
     } catch (error) {
         console.error("API Error:", error);
-        toast.error("Erro ao conectar com o servidor");
+        toast.error("Error connecting to server");
         throw error;
     }
 };
@@ -80,7 +80,7 @@ export const postDataFormData = async <T>(path: string, formData: FormData, mess
         if (response.status === 401) {
             Cookies.remove("token");
             window.location.href = "/login";
-            throw new Error("Sessão expirada, faça login novamente");
+            throw new Error("Session expired, please login again");
         }
 
         const data = await response.json();
@@ -94,7 +94,7 @@ export const postDataFormData = async <T>(path: string, formData: FormData, mess
         return data as T;
     } catch (error) {
         console.error("API Error:", error);
-        toast.error("Erro ao conectar com o servidor");
+        toast.error("Error connecting to server");
         throw error;
     }
 };
@@ -112,7 +112,7 @@ export const deleteData = async (path: string, id: string, message?: string): Pr
         if (response.status === 401) {
             Cookies.remove("token");
             window.location.href = "/login";
-            throw new Error("Sessão expirada, faça login novamente");
+            throw new Error("Session expired, please login again");
         }
 
         if (response.ok && message) {
@@ -122,7 +122,7 @@ export const deleteData = async (path: string, id: string, message?: string): Pr
         return response.ok;
     } catch (error) {
         console.error("API Error:", error);
-        toast.error("Erro ao conectar com o servidor");
+        toast.error("Error connecting to server");
         throw error;
     }
 };
@@ -142,7 +142,7 @@ export const updateData = async <T>(path: string, id: string, body: any, message
         if (response.status === 401) {
             Cookies.remove("token");
             window.location.href = "/login";
-            throw new Error("Sessão expirada, faça login novamente");
+            throw new Error("Session expired, please login again");
         }
 
         const data = await response.json();
@@ -154,7 +154,7 @@ export const updateData = async <T>(path: string, id: string, body: any, message
         return data as T;
     } catch (error) {
         console.error("API Error:", error);
-        toast.error("Erro ao conectar com o servidor");
+        toast.error("Error connecting to server");
         throw error;
     }
 };
@@ -173,20 +173,20 @@ export const uploadImage = async <T>(formData: FormData): Promise<T> => {
         if (response.status === 401) {
             Cookies.remove("token");
             window.location.href = "/login";
-            throw new Error("Sessão expirada, faça login novamente");
+            throw new Error("Session expired, please login again");
         }
 
         // Accept 200-299 status codes (201 for successful creation)
         if (!response.ok) {
             const errorData = await response.json();
-            throw new Error(errorData.message || 'Erro ao fazer upload da imagem');
+            throw new Error(errorData.message || 'Error uploading image');
         }
 
         const data = await response.json();
         return data as T;
     } catch (error) {
         console.error("API Error:", error);
-        toast.error(error instanceof Error ? error.message : "Erro ao fazer upload da imagem");
+        toast.error(error instanceof Error ? error.message : "Error uploading image");
         throw error;
     }
 };

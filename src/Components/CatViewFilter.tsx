@@ -31,59 +31,59 @@ const CatViewFilter = ({
 
   const filterCategories: FilterCategory[] = [
     {
-      title: 'Idade',
+      title: 'Age',
       options: [
-        { id: '0-1', label: '0-1 ano' },
-        { id: '1-2', label: '1-2 anos' },
-        { id: '2-4', label: '2-4 anos' },
-        { id: '4-7', label: '4-7 anos' },
-        { id: '8-12', label: '8-12 anos' },
-        { id: '12-15', label: '12-15 anos' },
+        { id: '0-1', label: '0-1 year' },
+        { id: '1-2', label: '1-2 years' },
+        { id: '2-4', label: '2-4 years' },
+        { id: '4-7', label: '4-7 years' },
+        { id: '8-12', label: '8-12 years' },
+        { id: '12-15', label: '12-15 years' },
       ],
     },
     {
-      title: 'Marcação',
+      title: 'Mark',
       options: [
-        { id: 'marked', label: 'Marcado' },
-        { id: 'unmarked', label: 'Não marcado' },
+        { id: 'marked', label: 'Marked' },
+        { id: 'unmarked', label: 'Unmarked' },
       ],
     },
     {
-      title: 'Sexo',
+      title: 'Gender',
       options: [
-        { id: 'male', label: 'Macho' },
-        { id: 'female', label: 'Fêmea' },
-        { id: 'unspecified', label: 'Não especificado' },
+        { id: 'male', label: 'Male' },
+        { id: 'female', label: 'Female' },
+        { id: 'unspecified', label: 'Unspecified' },
       ],
     },
     {
       title: 'Status',
       options: [
-        { id: 'healthy', label: 'Saudável' },
-        { id: 'attention', label: 'Em atenção' },
-        { id: 'critical', label: 'Crítico' },
+        { id: 'healthy', label: 'Healthy' },
+        { id: 'attention', label: 'Alert' },
+        { id: 'critical', label: 'Critical' },
       ],
     },
     {
-      title: 'Comorbidade',
+      title: 'Comorbidity',
       options: [
-        { id: 'urinary', label: 'Incontinência Urinária' },
-        { id: 'obesity', label: 'Obesidade' },
-        { id: 'arthritis', label: 'Artrite' },
-        { id: 'renal', label: 'Doença Renal Crônica' },
-        { id: 'lymphoma', label: 'Linfoma' },
-        { id: 'intestinal', label: 'Doença Inflamatória Intestinal' },
-        { id: 'fiv', label: 'Infecção por FIV' },
+        { id: 'urinary', label: 'Urinary Incontinence' },
+        { id: 'obesity', label: 'Obesity' },
+        { id: 'arthritis', label: 'Arthritis' },
+        { id: 'renal', label: 'Chronic Kidney Disease' },
+        { id: 'lymphoma', label: 'Lymphoma' },
+        { id: 'intestinal', label: 'Inflammatory Bowel Disease' },
+        { id: 'fiv', label: 'FIV Infection' },
       ],
     },
   ];
 
   const [selectedFilters, setSelectedFilters] = useState<Record<string, string[]>>({
-    'Idade': [],
-    'Marcação': [],
-    'Sexo': [],
+    'Age': [],
+    'Mark': [],
+    'Gender': [],
     'Status': [],
-    'Comorbidade': [],
+    'Comorbidity': [],
   });
 
   const handleFilterOptionClick = (categoryTitle: string, optionId: string) => {
@@ -113,7 +113,7 @@ const CatViewFilter = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="bg-gray-700 text-white border-gray-600 max-w-md">
         <DialogHeader className="flex items-center justify-between">
-          <DialogTitle className="text-xl font-semibold">Filtros</DialogTitle>
+          <DialogTitle className="text-xl font-semibold">Filters</DialogTitle>
         </DialogHeader>
         
         <div className="py-4 space-y-6">

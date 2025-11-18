@@ -63,15 +63,15 @@ const CatProfile = ({ cat, isExpanded, onToggleExpand }: CatProfileProps) => {
       });
       
       if (response.success) {
-        toast.success(newMarkedState ? 'Gato marcado com sucesso!' : 'Gato desmarcado com sucesso!');
+        toast.success(newMarkedState ? 'Cat marked successfully!' : 'Cat unmarked successfully!');
       } else {
         setIsMarked(!newMarkedState);
-        toast.error('Erro ao atualizar marcação');
+        toast.error('Error updating mark status');
       }
     } catch (error) {
       console.error('Error updating mark status:', error);
       setIsMarked(!newMarkedState);
-      toast.error('Erro ao atualizar marcação');
+      toast.error('Error updating mark');
     }
   };
 
@@ -93,7 +93,7 @@ const CatProfile = ({ cat, isExpanded, onToggleExpand }: CatProfileProps) => {
           className="p-3 bg-[#3c8054] flex justify-between items-center cursor-pointer"
           onClick={onToggleExpand}
         >
-          <h2 className="text-lg font-semibold text-white">Perfil</h2>
+          <h2 className="text-lg font-semibold text-white">Profile</h2>
           <ChevronDown className="text-white" size={20} />
         </div>
       </div>
@@ -106,7 +106,7 @@ const CatProfile = ({ cat, isExpanded, onToggleExpand }: CatProfileProps) => {
         className="p-3 bg-[#3c8054] flex justify-between items-center cursor-pointer"
         onClick={onToggleExpand}
       >
-        <h2 className="text-lg font-semibold text-white">Perfil</h2>
+        <h2 className="text-lg font-semibold text-white">Profile</h2>
         <ChevronUp className="text-white" size={20} />
       </div>
 
@@ -130,7 +130,7 @@ const CatProfile = ({ cat, isExpanded, onToggleExpand }: CatProfileProps) => {
             
             <div className="space-y-2">
               <div className="flex items-center gap-2">
-                <span className="text-gray-400 w-1/3">Sexo:</span>
+                <span className="text-gray-400 w-1/3">Gender:</span>
                 <div className="flex items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2 text-white">
                     <path d="M12 8a2 2 0 0 1 0 4 2 2 0 0 1 0-4z"/>
@@ -143,24 +143,24 @@ const CatProfile = ({ cat, isExpanded, onToggleExpand }: CatProfileProps) => {
               </div>
               
               <div className="flex items-start gap-2">
-                <span className="text-gray-400 w-1/3">Data de nascimento:</span>
+                <span className="text-gray-400 w-1/3">Birth Date:</span>
                 <div className="flex items-center">
-                  <span className="text-white">{cat.birthDate} • {cat.age} anos</span>
+                  <span className="text-white">{cat.birthDate} • {cat.age} years old</span>
                 </div>
               </div>
               
               <div className="flex items-start gap-2">
-                <span className="text-gray-400 w-1/3">Descrição:</span>
+                <span className="text-gray-400 w-1/3">Description:</span>
                 <p className="text-white text-sm">{cat.description}</p>
               </div>
               
               <div className="flex items-center gap-2">
-                <span className="text-gray-400 w-1/3">Peso:</span>
+                <span className="text-gray-400 w-1/3">Weight:</span>
                 <span className="text-white">{cat.weight} kg</span>
               </div>
 
               <div className="space-y-2">
-                <h3 className="text-white">Comorbidades</h3>
+                <h3 className="text-white">Comorbidities</h3>
                 <div className="flex flex-wrap gap-2">
                   {cat.comorbidities.length > 0 ? (
                     cat.comorbidities.map((comorbidity, index) => (
@@ -172,13 +172,13 @@ const CatProfile = ({ cat, isExpanded, onToggleExpand }: CatProfileProps) => {
                       </span>
                     ))
                   ) : (
-                    <span className="text-gray-400">Nenhuma comorbidade registrada</span>
+                    <span className="text-gray-400">No comorbidities recorded</span>
                   )}
                 </div>
               </div>
             
               <div className="space-y-2">
-                <h3 className="text-white">Vacinas</h3>
+                <h3 className="text-white">Vaccines</h3>
                 <div className="flex flex-wrap gap-2">
                   {cat.vaccines && cat.vaccines.length > 0 ? (
                     cat.vaccines.map((vaccine, index) => (
@@ -190,7 +190,7 @@ const CatProfile = ({ cat, isExpanded, onToggleExpand }: CatProfileProps) => {
                       </span>
                     ))
                   ) : (
-                    <span className="text-gray-400">Nenhuma vacina registrada</span>
+                    <span className="text-gray-400">No vaccines recorded</span>
                   )}
                 </div>
               </div>
@@ -199,7 +199,7 @@ const CatProfile = ({ cat, isExpanded, onToggleExpand }: CatProfileProps) => {
 
           <div className="md:w-1/2 space-y-4">
             <div className="flex flex-col items-center gap-2">
-              <h3 className="text-white text-lg">Marcador:</h3>
+              <h3 className="text-white text-lg">Marker:</h3>
               <div className="bg-white p-3 rounded-md">
                 <img 
                   src="/imgs/ArUco_marker_sample.png" 
@@ -217,7 +217,7 @@ const CatProfile = ({ cat, isExpanded, onToggleExpand }: CatProfileProps) => {
         <div className="flex justify-between items-center mt-8">
           <div className="text-xs text-gray-400">
             <p>Status: <span className={`font-semibold ${cat.status === 'healthy' ? 'text-green-500' : cat.status === 'attention' ? 'text-yellow-500' : 'text-red-500'}`}>
-              {cat.status === 'healthy' ? 'Saudável' : cat.status === 'attention' ? 'Em atenção' : 'Crítico'}
+              {cat.status === 'healthy' ? 'Healthy' : cat.status === 'attention' ? 'Alert' : 'Critical'}
             </span></p>
           </div>
           
@@ -227,14 +227,14 @@ const CatProfile = ({ cat, isExpanded, onToggleExpand }: CatProfileProps) => {
               className={`px-8 ${isMarked ? 'bg-purple-700 hover:bg-purple-800' : 'bg-gray-600 hover:bg-gray-700'} text-white`}
             >
               <Star className="mr-2" size={16} fill={isMarked ? "white" : "none"} />
-              {isMarked ? 'DESMARCAR' : 'MARCAR'}
+              {isMarked ? 'UNMARK' : 'MARK'}
             </Button>
             
             <Button 
               onClick={handleEditClick}
               className="px-8 bg-green-600 hover:bg-green-700 text-white"
             >
-              EDITAR
+              EDIT PROFILE
             </Button>
           </div>
         </div>

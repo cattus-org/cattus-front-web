@@ -37,7 +37,7 @@ const CatsView = () => {
         setLoading(false);
       } catch (error) {
         console.error('Error fetching cats:', error);
-        setError('Erro ao carregar os gatos');
+        setError('Error loading cats');
         setLoading(false);
       }
     };
@@ -80,7 +80,7 @@ const CatsView = () => {
       setLoading(false);
     } catch (error) {
       console.error('Error searching cats:', error);
-      setError('Erro ao pesquisar gatos');
+      setError('Error searching cats');
       setLoading(false);
     }
   }
@@ -93,11 +93,11 @@ const CatsView = () => {
       });
 
       if (response.success) {
-        toast.success('Marcação atualizada!');
+        toast.success('Mark updated!');
       }
     } catch (error) {
       console.error('Error updating mark:', error);
-      toast.error('Erro ao atualizar marcação');
+      toast.error('Error updating mark');
     }
   };
 
@@ -150,8 +150,8 @@ const CatsView = () => {
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h1 className="text-3xl font-bold text-white mb-2">Gatos cadastrados</h1>
-          <p className="text-gray-400">{cats.length} gatos ao todo</p>
+          <h1 className="text-3xl font-bold text-white mb-2">Registered cats</h1>
+          <p className="text-gray-400">{cats.length} cats total</p>
         </div>
         <div className="flex gap-2">
 
@@ -159,7 +159,7 @@ const CatsView = () => {
             className="bg-green-600 hover:bg-green-700 text-white"
             onClick={() => navigate('/cats/add')}
           >
-          ADICIONAR GATO
+          ADD CAT
           </Button>
 
           <Button 
@@ -168,7 +168,7 @@ const CatsView = () => {
             onClick={() => setFilterOpen(true)}
           >
             <Filter size={16} />
-            Filtros
+            Filters
           </Button>
           
           <CatViewTooltip>

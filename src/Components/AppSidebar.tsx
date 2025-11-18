@@ -35,11 +35,11 @@ const AppSidebar = ({ currentPage, onNavigate }: AppSidebarProps) => {
   const [loading, setLoading] = useState(true);
   
   const menuItems = [
-    { icon: <Home size={22} />, label: 'Inicio', page: 'home', path: '/home' },
-    { icon: <Cat size={22} />, label: 'Gatos', page: 'cats', path: '/cats' },
-    { icon: <Camera size={22} />, label: 'Câmeras', page: 'cameras', path: '/cameras' },
-    { icon: <BarChart2 size={22} />, label: 'Estatísticas', page: 'stats', path: '/stats' },
-    { icon: <FileText size={22} />, label: 'Relatórios', page: 'reports', path: '/reports' },
+    { icon: <Home size={22} />, label: 'Home', page: 'home', path: '/home' },
+    { icon: <Cat size={22} />, label: 'Cats', page: 'cats', path: '/cats' },
+    { icon: <Camera size={22} />, label: 'Cameras', page: 'cameras', path: '/cameras' },
+    { icon: <BarChart2 size={22} />, label: 'Statistics', page: 'stats', path: '/stats' },
+    { icon: <FileText size={22} />, label: 'Reports', page: 'reports', path: '/reports' },
   ];
 
   useEffect(() => {
@@ -169,7 +169,7 @@ const getCatName = (cat: Animal): string => {
 };
 
 const getCatGender = (cat: Animal): string => {
-  return cat.sex || cat.petGender || '';
+  return cat.sex == 'macho' ? 'male' : 'female';
 };
 
 const getCatPicture = (cat: Animal): string => {
@@ -193,12 +193,12 @@ const QuickViewSection = ({ markedCats, loading, onCatClick }: QuickViewSectionP
     <div className="mt-4">
       {!collapsed && (
         <div className="px-4 py-2 text-sm text-gray-400">
-          Visualização rápida
+          Quick view
         </div>
       )}
       
       <SidebarGroup 
-        title="Marcados" 
+        title="Marked" 
         icon={collapsed ? <Star size={22} /> : undefined}
         defaultExpanded={true}
       >
@@ -234,7 +234,7 @@ const QuickViewSection = ({ markedCats, loading, onCatClick }: QuickViewSectionP
                           {getCatName(cat)}
                         </p>
                         <p className="text-xs text-gray-400 truncate">
-                          {getCatGender(cat)} • {calculateAge(cat.birthDate || cat.petBirth)} anos
+                          {getCatGender(cat)} • {calculateAge(cat.birthDate || cat.petBirth)} years old
                         </p>
                         <p className="text-xs text-gray-500 truncate">
                           CID: {displayId}
@@ -250,13 +250,13 @@ const QuickViewSection = ({ markedCats, loading, onCatClick }: QuickViewSectionP
                   onClick={() => onCatClick('')} // Futuramente implementar filtros e levar direto com filtro marked ativado
                 >
                   <Star size={16} className="mr-2" />
-                  <span className="text-sm">Ver mais {markedCats.length - 4} gatos marcados</span>
+                  <span className="text-sm">View {markedCats.length - 4} more marked cats</span>
                 </div>
               )}
             </>
           ) : (
             <div className="px-4 py-3 text-sm text-gray-400">
-              Nenhum gato marcado ainda
+              No marked cats yet
             </div>
           )}
         </div>

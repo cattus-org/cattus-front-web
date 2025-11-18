@@ -35,7 +35,7 @@ const Notification: React.FC<NotificationProps> = ({ token, companyId }) => {
     const dateObj = new Date(timestamp);
 
     const day = String(dateObj.getDate()).padStart(2, '0');
-    const month = String(dateObj.getMonth() + 1).padStart(2, '0'); // Janeiro é 0!
+    const month = String(dateObj.getMonth() + 1).padStart(2, '0'); // January is 0!
     const year = dateObj.getFullYear();
 
     const hours = String(dateObj.getHours()).padStart(2, '0');
@@ -195,7 +195,7 @@ const Notification: React.FC<NotificationProps> = ({ token, companyId }) => {
       {isOpen && (
         <div className="absolute right-0 mt-2 w-96 bg-gray-900 rounded-md shadow-lg z-50 overflow-hidden">
           <div className="flex items-center justify-between p-4 border-b border-gray-800">
-            <h3 className="text-lg font-medium text-white">Notificações</h3>
+            <h3 className="text-lg font-medium text-white">Notifications</h3>
             <Button
               variant="ghost"
               size="icon"
@@ -207,7 +207,7 @@ const Notification: React.FC<NotificationProps> = ({ token, companyId }) => {
           </div>
 
           <div className="px-4 py-2 flex items-center justify-between border-b border-gray-800">
-            <span className="text-sm text-gray-300">Mostrar não lidos</span>
+            <span className="text-sm text-gray-300">Show unread</span>
             <Switch
               checked={showUnreadOnly}
               onCheckedChange={setShowUnreadOnly}
@@ -232,7 +232,7 @@ const Notification: React.FC<NotificationProps> = ({ token, companyId }) => {
               ))
             ) : (
               <div className="p-4 text-center text-gray-400">
-                Não há notificações para exibir
+                No notifications to display
               </div>
             )}
           </div>

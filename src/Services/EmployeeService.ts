@@ -8,23 +8,23 @@ const getOne = (id: string): Promise<User> =>
     getData<User>('/users/', id);
 
 const create = (formData: FormData): Promise<UserResponse> => 
-    postDataFormData<UserResponse>('/users', formData, "Usuário cadastrado com sucesso!");
+    postDataFormData<UserResponse>('/users', formData, "User registered successfully!");
 
 const update = (id: string, data: Partial<User> | FormData): Promise<UserResponse> => {
     if (data instanceof FormData) {
-        return postDataFormData<UserResponse>(`/users/${id}`, data, "Dados do usuário atualizados com sucesso!");
+        return postDataFormData<UserResponse>(`/users/${id}`, data, "User data updated successfully!");
     }
-    return updateData<UserResponse>('/users/', id, data, "Dados do usuário atualizados com sucesso!");
+    return updateData<UserResponse>('/users/', id, data, "User data updated successfully!");
 };
 
 const remove = (id: string): Promise<boolean> => 
-    deleteData('/users/', id, "Usuário removido com sucesso!");
+    deleteData('/users/', id, "User removed successfully!");
 
 const forgotPassword = (email: string): Promise<UserResponse> => 
-    postDataFormData<UserResponse>('/users/forgot-password', { email }, "Se o email existir, um link de redefinição foi enviado!");
+    postDataFormData<UserResponse>('/users/forgot-password', { email }, "If the email exists, a reset link has been sent!");
 
 const resetPassword = (token: string, newPassword: string): Promise<UserResponse> => 
-    postDataFormData<UserResponse>('/users/reset-password', { token, newPassword }, "Senha atualizada com sucesso!");
+    postDataFormData<UserResponse>('/users/reset-password', { token, newPassword }, "Password updated successfully!");
 
 export default {
     getAll,

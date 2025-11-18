@@ -33,7 +33,7 @@ const ProfilePage = () => {
       try {
         const token = Cookies.get('token');
         if (!token) {
-          setError('Você precisa estar autenticado');
+          setError('You need to be authenticated');
           setLoading(false);
           return;
         }
@@ -42,7 +42,7 @@ const ProfilePage = () => {
         const employeeId = decoded.id;
         
         if (!employeeId) {
-          setError('ID do funcionário não encontrado');
+          setError('Employee ID not found');
           setLoading(false);
           return;
         }
@@ -53,12 +53,12 @@ const ProfilePage = () => {
         if (employeeData && employeeData.company) {
           setEmployee(employeeData as EmployeeWithCompany);
         } else {
-          setError('Dados da empresa não encontrados');
+          setError('Company data not found');
         }
         setLoading(false);
       } catch (error) {
         console.error('Error fetching profile data:', error);
-        setError('Erro ao carregar dados do perfil');
+        setError('Error loading profile data');
         setLoading(false);
       }
     };
@@ -77,14 +77,14 @@ const ProfilePage = () => {
   if (error || !employee) {
     return (
       <div className="p-6">
-        <p className="text-xl text-red-500">{error || 'Dados não encontrados'}</p>
+        <p className="text-xl text-red-500">{error || 'Data not found'}</p>
       </div>
     );
   }
 
   return (
     <div className="p-6">
-      <h1 className="text-3xl font-bold text-white mb-6">Perfil</h1>
+      <h1 className="text-3xl font-bold text-white mb-6">Profile</h1>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <EmployeeData 

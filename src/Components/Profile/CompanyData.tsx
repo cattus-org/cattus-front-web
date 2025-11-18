@@ -69,7 +69,7 @@ const CompanyData: React.FC<CompanyDataProps> = ({ _id, cnpj, name, logo, phone,
         await CompanyService.update(_id, updateData);
       }
 
-      toast.success('Dados da empresa atualizados com sucesso');
+      toast.success('Company data updated successfully');
       setIsEditing(false);
       setIsLoading(false);
       
@@ -78,7 +78,7 @@ const CompanyData: React.FC<CompanyDataProps> = ({ _id, cnpj, name, logo, phone,
       }, 1500);
     } catch (error) {
       console.error('Error updating company:', error);
-      toast.error('Erro ao atualizar dados da empresa');
+      toast.error('Error updating company data');
       setIsLoading(false);
     }
   };
@@ -121,7 +121,7 @@ const CompanyData: React.FC<CompanyDataProps> = ({ _id, cnpj, name, logo, phone,
             />
             {isEditing && (
               <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-                <span className="text-white text-sm font-medium">Alterar logo</span>
+                <span className="text-white text-sm font-medium">Change logo</span>
               </div>
             )}
           </div>
@@ -145,7 +145,7 @@ const CompanyData: React.FC<CompanyDataProps> = ({ _id, cnpj, name, logo, phone,
           </div>
           
           <div>
-            <label className="block text-white mb-2">Telefone</label>
+            <label className="block text-white mb-2">Phone</label>
             <Input
               name="phone"
               type="tel"
@@ -165,14 +165,14 @@ const CompanyData: React.FC<CompanyDataProps> = ({ _id, cnpj, name, logo, phone,
                 className="bg-gray-600 hover:bg-gray-700 text-white"
                 disabled={isLoading}
               >
-                Cancelar
+                CANCEL
               </Button>
               <Button 
                 onClick={handleSave}
                 className="bg-green-600 hover:bg-green-700 text-white"
                 disabled={isLoading}
               >
-                {isLoading ? 'Salvando...' : 'Salvar'}
+                {isLoading ? 'Saving...' : 'Save'}
               </Button>
             </div>
           ) : (
@@ -181,14 +181,14 @@ const CompanyData: React.FC<CompanyDataProps> = ({ _id, cnpj, name, logo, phone,
                 onClick={() => setIsEditing(true)}
                 className="bg-green-600 hover:bg-green-700 text-white"
               >
-                EDITAR
+                EDIT
               </Button>
               <Button 
                 onClick={handleMembershipClick}
                 className="bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-2"
               >
                 <DollarSign size={18} />
-                ASSINATURA
+                SUBSCRIPTION
               </Button>
             </>
           )}

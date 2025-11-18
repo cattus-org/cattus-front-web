@@ -62,15 +62,15 @@ const StatusChange = ({
   
   const getFormattedStatusText = () => {
     if (newStatus === 'healthy' && changeType === 'improvement') {
-      return `estado saudável`;
+      return `healthy state`;
     }
     
     if (newStatus === 'attention') {
-      return `estado de atenção`;
+      return `alert state`;
     }
     
     if (newStatus === 'critical') {
-      return `estado crítico`;
+      return `critical state`;
     }
     
     return `estado ${getStatusText(newStatus)}`;
@@ -79,9 +79,9 @@ const StatusChange = ({
   const getStatusText = (status: StatusType): string => {
     switch (status) {
       case 'healthy':
-        return 'saudável';
+        return 'healthy';
       case 'attention':
-        return 'estado de atenção';
+        return 'alert state';
       case 'critical':
         return 'estado crítico';
       default:

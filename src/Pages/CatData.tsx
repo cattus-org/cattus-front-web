@@ -33,23 +33,23 @@ const CatData = () => {
 
   const generateReport = async () => {
     if (!cat?.id && !cat?._id) {
-      toast.error('ID do gato não encontrado para gerar relatório.');
+      toast.error('Cat ID not found to generate report.');
       return;
     }
     
     const catId = cat.id?.toString() || cat._id || '';
     if (!catId) {
-      toast.error('ID do gato inválido');
+      toast.error('Invalid cat ID');
       return;
     }
 
     try {
       setIsGeneratingReport(true);
       await ReportService.getAnimalReport(catId, 0, 50);
-      toast.success('Relatório baixado com sucesso!');
+      toast.success('Report downloaded successfully!');
     } catch (error) {
       console.error('Error generating report:', error);
-      toast.error('Erro ao gerar relatório');
+      toast.error('Error generating report');
     } finally {
       setIsGeneratingReport(false);
     }
@@ -58,7 +58,7 @@ const CatData = () => {
   useEffect(() => {
     const fetchCatData = async () => {
       if (!id) {
-        setError('ID do gato não fornecido');
+        setError('Cat ID not provided');
         setLoading(false);
         return;
       }
@@ -94,12 +94,12 @@ const CatData = () => {
   if (error || !cat) {
     return (
       <div className="p-6">
-        <p className="text-xl text-gray-400">{error || 'Gato não encontrado.'}</p>
+        <p className="text-xl text-gray-400">{error || 'Cat not found.'}</p>
         <Button 
           onClick={() => navigate('/cats')}
           className="mt-4 bg-green-600 hover:bg-green-700"
         >
-          Voltar para lista de gatos
+          Back to cat list
         </Button>
       </div>
     );
@@ -112,7 +112,7 @@ const CatData = () => {
       gender: cat.sex || cat.petGender || '',
       birthDate: formatDate(cat.birthDate || cat.petBirth),
       age: calculateAge(cat.birthDate || cat.petBirth),
-      description: cat.observations || 'Sem descrição disponível',
+      description: cat.observations || 'No description available',
       profilePicture: cat.picture || cat.petPicture || 'imgs/cat_sample.jpg',
       weight: cat.weight || 0,
       comorbidities: cat.comorbidities || [],
@@ -125,13 +125,13 @@ const CatData = () => {
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-white">Perfil do gato - {cat.name || cat.petName}</h1>
+        <h1 className="text-3xl font-bold text-white">Cat profile - {cat.name || cat.petName}</h1>
         <Button 
           onClick={generateReport}
           className="bg-green-600 hover:bg-green-700 text-white"
           disabled={isGeneratingReport}
         >
-          {isGeneratingReport ? 'GERANDO...' : 'GERAR RELATÓRIO'}
+          {isGeneratingReport ? 'GENERATING...' : 'GENERATE REPORT'}
         </Button>
       </div>
 

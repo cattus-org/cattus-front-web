@@ -47,7 +47,7 @@ const ReportSettings: React.FC<ReportSettingsProps> = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="bg-gray-800 text-white border-gray-700 max-w-md">
         <DialogHeader className="flex items-center justify-between">
-          <DialogTitle className="text-xl font-semibold">Relatório</DialogTitle>
+          <DialogTitle className="text-xl font-semibold">Report</DialogTitle>
         </DialogHeader>
 
         <div className="mt-4 mb-4">

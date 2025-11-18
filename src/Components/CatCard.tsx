@@ -31,13 +31,13 @@ const getStatusColor = (status: CatStatus): string => {
 const getStatusText = (status: CatStatus): string => {
   switch (status) {
     case 'healthy':
-      return 'SAUDÁVEL';
+      return 'HEALTHY';
     case 'attention':
-      return 'ATENÇÃO';
+      return 'ALERT';
     case 'critical':
-      return 'CRÍTICO';
+      return 'CRITICAL';
     default:
-      return 'SAUDÁVEL';
+      return 'HEALTHY';
   }
 };
 
@@ -106,7 +106,7 @@ const CatCard = ({
       <button
         onClick={handleMarkToggle}
         className="absolute top-2 right-2 z-10 bg-transparent border-none cursor-pointer"
-        aria-label={isMarked ? "Desmarcar gato" : "Marcar gato"}
+        aria-label={isMarked ? "Unmark cat" : "Mark cat"}
       >
         <Star 
           size={20} 
@@ -126,7 +126,7 @@ const CatCard = ({
       <div className="p-2 bg-black text-white">
         <h3 className="font-bold text-sm truncate">{name || "Nome do gato(a)"}</h3>
         <div className="flex justify-between items-center mt-1 text-xs">
-          <span>{gender} • {age} anos</span>
+          <span>{gender} • {age} y.o.</span>
           <span className="text-gray-400">CID: {id.substring(0, 4)}</span>
         </div>
       </div>

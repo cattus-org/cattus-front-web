@@ -27,7 +27,7 @@ const CameraCard = ({ id, name, imageUrl }: CameraCardProps) => {
       <div className="h-full w-full bg-gray-800 overflow-hidden">
         <img 
           src={imageUrl} 
-          alt={`Câmera ${name}`}
+          alt={`Camera ${name}`}
           className="w-full h-full object-cover"
           onError={(e) => {
             (e.target as HTMLImageElement).src = '';
@@ -44,7 +44,7 @@ const CameraCard = ({ id, name, imageUrl }: CameraCardProps) => {
       )}
       
       <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-2 text-center">
-        <h3 className="font-medium text-sm">Câmera {name}</h3>
+        <h3 className="font-medium text-sm">Camera {name}</h3>
       </div>
     </div>
   );

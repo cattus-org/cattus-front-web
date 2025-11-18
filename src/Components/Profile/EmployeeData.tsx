@@ -44,7 +44,7 @@ const EmployeeData: React.FC<EmployeeDataProps> = ({ _id, name, picture, email }
 
   const handleSave = async () => {
     if (formData.password && formData.password !== formData.confirmPassword) {
-      toast.error('As senhas não coincidem');
+      toast.error('Passwords do not match');
       return;
     }
 
@@ -73,7 +73,7 @@ const EmployeeData: React.FC<EmployeeDataProps> = ({ _id, name, picture, email }
         await EmployeeService.update(_id, updateData);
       }
 
-      toast.success('Perfil atualizado com sucesso');
+      toast.success('Profile updated successfully');
       setIsEditing(false);
       setFormData(prev => ({ ...prev, password: '', confirmPassword: '' }));
       setIsLoading(false);
@@ -83,7 +83,7 @@ const EmployeeData: React.FC<EmployeeDataProps> = ({ _id, name, picture, email }
       }, 1500);
     } catch (error) {
       console.error('Error updating profile:', error);
-      toast.error('Erro ao atualizar perfil');
+      toast.error('Error updating profile');
       setIsLoading(false);
     }
   };
@@ -121,7 +121,7 @@ const EmployeeData: React.FC<EmployeeDataProps> = ({ _id, name, picture, email }
             />
             {isEditing && (
               <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-                <span className="text-white text-sm font-medium">Alterar foto</span>
+                <span className="text-white text-sm font-medium">Change photo</span>
               </div>
             )}
           </div>
@@ -150,26 +150,26 @@ const EmployeeData: React.FC<EmployeeDataProps> = ({ _id, name, picture, email }
           {isEditing && (
             <>
               <div>
-                <label className="block text-white mb-2">Nova Senha</label>
+                <label className="block text-white mb-2">New Password</label>
                 <Input
                   name="password"
                   type="password"
                   value={formData.password}
                   onChange={handleInputChange}
                   className="bg-gray-700 border-gray-600 text-white"
-                  placeholder="Deixe em branco para manter a atual"
+                  placeholder="Leave blank to keep current"
                 />
               </div>
               
               <div>
-                <label className="block text-white mb-2">Confirmar Nova Senha</label>
+                <label className="block text-white mb-2">Confirm New Password</label>
                 <Input
                   name="confirmPassword"
                   type="password"
                   value={formData.confirmPassword}
                   onChange={handleInputChange}
                   className="bg-gray-700 border-gray-600 text-white"
-                  placeholder="Confirme a nova senha"
+                  placeholder="Confirm new password"
                 />
               </div>
             </>
@@ -184,14 +184,14 @@ const EmployeeData: React.FC<EmployeeDataProps> = ({ _id, name, picture, email }
                 className="bg-gray-600 hover:bg-gray-700 text-white"
                 disabled={isLoading}
               >
-                Cancelar
+                CANCEL
               </Button>
               <Button 
                 onClick={handleSave}
                 className="bg-green-600 hover:bg-green-700 text-white"
                 disabled={isLoading}
               >
-                {isLoading ? 'Salvando...' : 'Salvar'}
+                {isLoading ? 'Saving...' : 'Save'}
               </Button>
             </div>
           ) : (
@@ -199,7 +199,7 @@ const EmployeeData: React.FC<EmployeeDataProps> = ({ _id, name, picture, email }
               onClick={() => setIsEditing(true)}
               className="bg-green-600 hover:bg-green-700 text-white"
             >
-              EDITAR
+              EDIT
             </Button>
           )}
         </div>

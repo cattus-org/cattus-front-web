@@ -106,7 +106,7 @@ const Header = () => {
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
           <Input
             className="w-100 bg-gray-800 border-gray-700 text-white pl-10 rounded-md"
-            placeholder="Pesquisar..."
+            placeholder="Search..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />

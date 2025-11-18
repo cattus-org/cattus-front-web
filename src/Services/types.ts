@@ -1,4 +1,4 @@
-// Resposta genérica para as requisições da API
+// Generic response for API requests
 export interface ApiResponse {
   success: boolean;
   message?: string;

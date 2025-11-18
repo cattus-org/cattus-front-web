@@ -17,7 +17,7 @@ const SegmentTwo: React.FC<SegmentTwoProps> = ({
   onSaveAndFinalize,
   isLoading
 }) => {
-  const catName = formData.name || formData.petName || 'Nome do gato';
+  const catName = formData.name || formData.petName || 'Cat name';
   const catGender = formData.sex || formData.petGender || '';
   const catAge = calculateAge(formData.birthDate || formData.petBirth);
   
@@ -97,32 +97,32 @@ const SegmentTwo: React.FC<SegmentTwoProps> = ({
   }, [formData.comorbidities, formData.vaccines]);
 
   const comorbidities = [
-    'TDAH',
-    'Obesa',
+    'ADHD',
+    'Obese',
     'Diabetes',
-    'Incontinência Urinária',
-    'Doença Renal Crônica',
-    'Artrite',
-    'Linfoma',
-    'Doença Inflamatória Intestinal',
-    'Infecção por FIV',
-    'Leucemia Felina (Felv)',
-    'Insuficiência Cardíaca',
-    'Hipertensão',
-    'Asma',
-    'Panleucopenia',
-    'Herpes Felino'
+    'Urinary Incontinence',
+    'Chronic Kidney Disease',
+    'Arthritis',
+    'Lymphoma',
+    'Inflammatory Bowel Disease',
+    'FIV Infection',
+    'Feline Leukemia (Felv)',
+    'Heart Failure',
+    'Hypertension',
+    'Asthma',
+    'Panleukopenia',
+    'Feline Herpes'
   ];
 
   const vaccines = [
-    'Raiva',
-    'Gripe felina',
+    'Rabies',
+    'Feline Flu',
     'Felv',
-    'Tríplice Felina',
-    'Quádrupla Felina',
-    'Panleucopenia',
-    'Herpes Felino',
-    'Calicivirose'
+    'Feline Triple',
+    'Feline Quadruple',
+    'Panleukopenia',
+    'Feline Herpes',
+    'Calicivirus'
   ];
 
   const toggleComorbidity = (comorbidity: string) => {
@@ -170,7 +170,7 @@ const SegmentTwo: React.FC<SegmentTwoProps> = ({
   return (
     <div className="bg-gray-900 rounded-md overflow-hidden">
       <div className="p-3 bg-[#3c8054] flex justify-between items-center">
-        <h2 className="text-lg font-semibold text-white">Peso, Comorbidades e Vacinas</h2>
+        <h2 className="text-lg font-semibold text-white">Weight, Comorbidities and Vaccines</h2>
       </div>
 
       <div className="p-6 bg-[#324250]">
@@ -178,12 +178,12 @@ const SegmentTwo: React.FC<SegmentTwoProps> = ({
           <div>
             <div className="bg-[#6c1482] rounded-md overflow-hidden p-4">
               <h2 className="text-2xl font-bold text-white mb-1">{catName}</h2>
-              <p className="text-white text-sm mb-2">{catGender} • {catAge} anos</p>
+              <p className="text-white text-sm mb-2">{catGender} • {catAge} years old</p>
               
               <div className="h-72 w-full">
                 <img 
                   src={formData.picture || formData.petPicture || '/imgs/cat_sample.jpg'} 
-                  alt={`Foto de ${catName}`}
+                  alt={`Photo of ${catName}`}
                   className="w-full h-full object-cover rounded-md"
                 />
               </div>
@@ -193,7 +193,7 @@ const SegmentTwo: React.FC<SegmentTwoProps> = ({
           <div className="col-span-2 space-y-6">
             {/* Weight */}
             <div>
-              <p className="text-white mb-2">Peso (kg)</p>
+              <p className="text-white mb-2">Weight (kg)</p>
               <Input
                 type="number"
                 className="bg-gray-700 border-gray-600 text-white"
@@ -218,7 +218,7 @@ const SegmentTwo: React.FC<SegmentTwoProps> = ({
 
             {/* Comorbidities */}
             <div>
-              <p className="text-white mb-4">Comorbidades:</p>
+              <p className="text-white mb-4">Comorbidities:</p>
               <div className="flex flex-wrap gap-2">
                 {comorbidities.map((comorbidity) => {
                   const isSelected = selectedComorbidities.includes(comorbidity);
@@ -242,7 +242,7 @@ const SegmentTwo: React.FC<SegmentTwoProps> = ({
 
             {/* Vaccines */}
             <div>
-              <p className="text-white mb-4">Vacinas:</p>
+              <p className="text-white mb-4">Vaccines:</p>
               <div className="flex flex-wrap gap-2">
                 {vaccines.map((vaccine) => {
                   const isSelected = selectedVaccines.includes(vaccine);
@@ -274,7 +274,7 @@ const SegmentTwo: React.FC<SegmentTwoProps> = ({
             className="px-8 py-2 bg-green-600 hover:bg-green-700 text-white"
             disabled={isLoading}
           >
-            SALVAR E FINALIZAR
+            SAVE AND FINALIZE
           </Button>
         </div>
       </div>

@@ -26,7 +26,7 @@ const CamerasView = () => {
         setLoading(false);
       } catch (error) {
         console.error('Error fetching cameras:', error);
-        setError('Erro ao carregar as câmeras');
+        setError('Error loading cameras');
         setLoading(false);
       }
     };
@@ -53,8 +53,8 @@ const CamerasView = () => {
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h1 className="text-3xl font-bold text-white mb-2">Câmeras no local</h1>
-          <p className="text-gray-400">{cameras.length} câmeras ao todo</p>
+          <h1 className="text-3xl font-bold text-white mb-2">Cameras on site</h1>
+          <p className="text-gray-400">{cameras.length} total cameras</p>
         </div>
         <div className="flex gap-2">
           <Button 
@@ -63,7 +63,7 @@ const CamerasView = () => {
             onClick={() => setFilterOpen(true)}
           >
             <Filter size={16} />
-            Filtros
+            Filters
           </Button>
           
           <CameraViewTooltip>

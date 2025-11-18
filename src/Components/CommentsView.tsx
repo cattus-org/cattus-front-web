@@ -26,19 +26,19 @@ const CommentsView: React.FC<CommentsViewProps> = ({
   const [comments] = useState<FeedbackComment[]>([
     {
       id: '1',
-      text: 'Seria legal se houvesse uma forma de visualizar múltiplos gatos ao mesmo tempo em diferentes câmeras.',
+      text: 'It would be cool if there was a way to view multiple cats at the same time on different cameras.',
       date: '18/05/2025',
       status: 'pending'
     },
     {
       id: '2',
-      text: 'O sistema de notificações é muito útil, mas gostaria que houvesse opções para personalizar quais alertas recebo.',
+      text: 'The notification system is very useful, but I would like there to be options to customize which alerts I receive.',
       date: '14/05/2025',
       status: 'in-progress'
     },
     {
       id: '3',
-      text: 'Encontrei um bug na tela de estatísticas onde os gráficos não carregam corretamente no Firefox.',
+      text: 'I found a bug on the statistics screen where the graphs don\'t load correctly on Firefox.',
       date: '10/05/2025',
       status: 'resolved'
     }
@@ -51,13 +51,13 @@ const CommentsView: React.FC<CommentsViewProps> = ({
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'pending':
-        return <span className="text-xs py-1 px-2 bg-yellow-500/20 text-yellow-500 rounded-full">Pendente</span>;
+        return <span className="text-xs py-1 px-2 bg-yellow-500/20 text-yellow-500 rounded-full">Pending</span>;
       case 'in-progress':
-        return <span className="text-xs py-1 px-2 bg-blue-500/20 text-blue-500 rounded-full">Em análise</span>;
+        return <span className="text-xs py-1 px-2 bg-blue-500/20 text-blue-500 rounded-full">In review</span>;
       case 'resolved':
-        return <span className="text-xs py-1 px-2 bg-green-500/20 text-green-500 rounded-full">Resolvido</span>;
+        return <span className="text-xs py-1 px-2 bg-green-500/20 text-green-500 rounded-full">Resolved</span>;
       default:
-        return <span className="text-xs py-1 px-2 bg-gray-500/20 text-gray-500 rounded-full">Desconhecido</span>;
+        return <span className="text-xs py-1 px-2 bg-gray-500/20 text-gray-500 rounded-full">Unknown</span>;
     }
   };
 
@@ -65,13 +65,13 @@ const CommentsView: React.FC<CommentsViewProps> = ({
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="bg-gray-800 text-white border-gray-700 max-w-2xl">
         <DialogHeader className="flex items-center justify-between">
-          <DialogTitle className="text-xl font-semibold">Seus Comentários</DialogTitle>
+          <DialogTitle className="text-xl font-semibold">Your Comments</DialogTitle>
         </DialogHeader>
 
         <div className="mt-4 mb-4">
           {comments.length === 0 ? (
             <div className="p-4 text-center text-gray-400">
-              <p>Você ainda não enviou nenhum feedback.</p>
+              <p>You haven't sent any feedback yet.</p>
             </div>
           ) : (
             <div className="space-y-4 max-h-[60vh] overflow-y-auto">
@@ -84,12 +84,12 @@ const CommentsView: React.FC<CommentsViewProps> = ({
                         alt="Profile"
                         className="w-8 h-8 rounded-full mr-2"
                       />
-                      <span className="font-medium">Você</span>
+                      <span className="font-medium">You</span>
                     </div>
                     {getStatusBadge(comment.status)}
                   </div>
                   <p className="text-gray-200 mb-2">{comment.text}</p>
-                  <p className="text-xs text-gray-400">Enviado em {comment.date}</p>
+                  <p className="text-xs text-gray-400">Sent on {comment.date}</p>
                 </div>
               ))}
             </div>
@@ -101,7 +101,7 @@ const CommentsView: React.FC<CommentsViewProps> = ({
             className="bg-gray-700 hover:bg-gray-600"
             onClick={() => onOpenChange(false)}
           >
-            Fechar
+            Close
           </Button>
         </div>
       </DialogContent>

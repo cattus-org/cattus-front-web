@@ -45,7 +45,7 @@ const Streaming = () => {
 
     const fetchCamera = async () => {
       if (!id) {
-        setError('ID da câmera não fornecido');
+        setError('Camera ID not provided');
         setLoading(false);
         return;
       }
@@ -57,7 +57,7 @@ const Streaming = () => {
         setLoading(false);
       } catch (error) {
         console.error('Error fetching camera data:', error);
-        setError('Erro ao carregar dados da câmera');
+        setError('Error loading camera data');
         setLoading(false);
       }
     };
@@ -70,7 +70,7 @@ const Streaming = () => {
       if (!id) return;
       try {
         if (showLoading) setLoadingActivities(true);
-        if (!append) setLoadingMore(false);
+        if (append) setLoadingMore(true);
         
         const offset = page * 5;
         const cameraActivitiesData = await ActivityService.getByCamera(id, offset, 5);
@@ -106,19 +106,19 @@ const Streaming = () => {
       ws.onmessage = async (event) => {
         console.log('[WS] Mensagem recebida:', event.data);
         try {
-          // Atualiza atividades sem mostrar loading, sempre da primeira página
+          // Updates activities without showing loading, always from the first page
           fetchCameraActivities(false, 0, false);
         } catch (error) {
-          console.error('[WS] Erro ao processar mensagem:', error);
+          console.error('[WS] Error processing message:', error);
         }
       };
 
       ws.onclose = () => {
-        console.log('[WS] Conexão encerrada');
+        console.log('[WS] Connection closed');
       };
 
       ws.onerror = (e) => {
-        console.error('[WS] Erro:', e);
+        console.error('[WS] Error:', e);
       };
 
       return () => {
@@ -157,12 +157,12 @@ const Streaming = () => {
   if (error || !camera) {
     return (
       <div className="p-6">
-        <p className="text-xl text-gray-400">{error || 'Câmera não encontrada.'}</p>
+        <p className="text-xl text-gray-400">{error || 'Camera not found.'}</p>
         <Button 
           onClick={() => navigate('/cameras')}
           className="mt-4 bg-green-600 hover:bg-green-700"
         >
-          Voltar para lista de câmeras
+          Back to camera list
         </Button>
       </div>
     );
@@ -184,7 +184,7 @@ const Streaming = () => {
 
           <div className="bg-gray-900 rounded-md p-4 mb-4 w-[90%] mx-auto">
             <div className="flex justify-between items-start mb-2">
-              <h2 className="text-2xl font-bold text-white">Câmera {camera.name || camera.cameraLocation || 'Unknown'}</h2>
+              <h2 className="text-2xl font-bold text-white">Camera {camera.name || camera.cameraLocation || 'Unknown'}</h2>
               <Button
                 className={`${
                   !camera.deleted ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'
@@ -193,19 +193,19 @@ const Streaming = () => {
                 onClick={toggleCameraStatus}
               >
                 {!isUserAdmin && <Lock size={16} className="mr-2" />}
-                {!camera.deleted ? 'DESATIVAR' : 'ATIVAR'}
+                {!camera.deleted ? 'Deactivate' : 'Activate'}
               </Button>
             </div>
             {/* Description field commented out - not available in new DB */}
-            {/* <p className="text-gray-300 mb-2">{camera.description || 'Sem descrição disponível'}</p> */}
+            {/* <p className="text-gray-300 mb-2">{camera.description || 'No description available'}</p> */}
             <div className="flex items-center">
-              <span className="text-gray-400 mr-2">Estado:</span>
+              <span className="text-gray-400 mr-2">Status:</span>
               <Badge 
                 className={`${
                   !camera.deleted ? 'bg-green-500/20 text-green-500' : 'bg-red-500/20 text-red-500'
                 } hover:bg-opacity-20`}
               >
-                {!camera.deleted ? 'Ativa' : 'Inativa'}
+                {!camera.deleted ? 'Active' : 'Inactive'}
               </Badge>
             </div>
           </div>
@@ -213,11 +213,11 @@ const Streaming = () => {
 
         <div className="w-full lg:w-80">
           <ActivityList 
-            title="Atividades nesta câmera"
+            title="Activities on this camera"
             items={catActivities}
             maxHeight="500px"
             loading={loadingActivities}
-            emptyMessage="Não há atividades registradas nesta câmera"
+            emptyMessage="No activities recorded on this camera"
             hasMore={hasMoreActivities}
             isLoadingMore={loadingMore}
             onLoadMore={() => {

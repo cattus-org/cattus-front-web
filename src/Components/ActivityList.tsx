@@ -5,7 +5,7 @@ import { Button } from '@/Components/ui/button';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { Animal, Camera } from '@/Services';
 
-// Função para ajustar timezone (adiciona 3 horas para corrigir o offset)
+// Function to adjust timezone (adds 3 hours to correct the offset)
 const adjustTimeZone = (dateString: string | Date): Date => {
   const date = new Date(dateString);
   // Adiciona 3 horas (3 * 60 * 60 * 1000 ms)
@@ -39,11 +39,11 @@ interface ActivityListProps {
 }
 
 const ActivityList = ({
-  title = "Atividades",
+  title = "Activities",
   items,
   maxHeight = "calc(100vh-260px)",
   onItemClick,
-  emptyMessage = "Não há atividades para exibir",
+  emptyMessage = "No activities to display",
   loading = false,
   hasMore = false,
   isLoadingMore = false,
@@ -123,13 +123,13 @@ const ActivityList = ({
                         if (item.startedAt === item.endedAt) {
                           return <>
                             {timeStr}
-                            <span className="ml-2 px-2 py-0.5 rounded bg-yellow-600 text-yellow-100 text-xs font-semibold">Em andamento</span>
+                            <span className="ml-2 px-2 py-0.5 rounded bg-yellow-600 text-yellow-100 text-xs font-semibold">In progress</span>
                           </>;
                         }
-                        // Se não está em andamento, está finalizada
+                        // If not in progress, it's finished
                         return <>
                           {timeStr}
-                          <span className="ml-2 px-2 py-0.5 rounded bg-green-700 text-green-100 text-xs font-semibold">Finalizada</span>
+                          <span className="ml-2 px-2 py-0.5 rounded bg-green-700 text-green-100 text-xs font-semibold">Completed</span>
                         </>;
                       }
                       return '';
@@ -159,7 +159,7 @@ const ActivityList = ({
                   <div className="flex-1 min-w-0">
                     <div className="text-white font-semibold text-base leading-tight">{item.cat.name}</div>
                     <div className="flex items-center gap-2 text-xs text-gray-400 mt-1">
-                      <span>{item.cat.sex}</span>
+                      <span>{item.cat.sex == "macho" ? "male" : "female"}</span>
                       <span>·</span>
                       <span>{(() => {
                         if (item.cat.birthDate) {
@@ -170,12 +170,12 @@ const ActivityList = ({
                           if (m < 0 || (m === 0 && now.getDate() < birth.getDate())) {
                             age--;
                           }
-                          return `${age} anos`;
+                          return `${age} y.o.`;
                         }
                         return '';
                       })()}</span>
                       <span>·</span>
-                      <span>CID: {item.cat.id || 'CID desconhecido'}</span>
+                      <span>CID: {item.cat.id || 'Unknown CID'}</span>
                     </div>
                   </div>
                 </div>
@@ -183,7 +183,7 @@ const ActivityList = ({
                   <div className="px-6 pb-4 text-sm text-gray-300">
                     <div className="pt-2">
                       <p className="mb-1">
-                        Última aparição: {(() => {
+                        Last appearance: {(() => {
                           if (item.endedAt) {
                             const d = adjustTimeZone(item.endedAt);
                             const formatter = new Intl.DateTimeFormat('pt-BR', {
@@ -202,7 +202,7 @@ const ActivityList = ({
                       </p>
                       {item.startedAt !== item.endedAt && item.startedAt && item.endedAt && (
                         <p className="mb-1">
-                          Duração: {(() => {
+                          Duration: {(() => {
                             const start = new Date(item.startedAt).getTime();
                             const end = new Date(item.endedAt).getTime();
                             const diffMs = end - start;
@@ -218,10 +218,10 @@ const ActivityList = ({
                           })()}
                         </p>
                       )}
-                      <p className="mb-1">Estado: {item.cat.status || 'Status desconhecido'}</p>
-                      <p className="mb-1">Localização: {item.camera.name || 'Localização desconhecida'}</p>
+                      <p className="mb-1">Status: {item.cat.status || 'Unknown status'}</p>
+                      <p className="mb-1">Location: {item.camera.name || 'Unknown location'}</p>
                       {item.title && (
-                        <p>Atividade: {item.title}</p>
+                        <p>Activity: {item.title}</p>
                       )}
                     </div>
                   </div>
@@ -240,7 +240,7 @@ const ActivityList = ({
                 disabled={isLoadingMore}
                 className="bg-purple-600 hover:bg-purple-700 text-white"
               >
-                {isLoadingMore ? 'Carregando...' : 'Carregar Mais'}
+                {isLoadingMore ? 'Loading...' : 'Load More'}
               </Button>
             </div>
           )}

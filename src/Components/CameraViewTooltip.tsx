@@ -17,19 +17,19 @@ const CameraViewTooltip = ({ children }: CameraViewTooltipProps) => {
       </HoverCardTrigger>
       <HoverCardContent className="w-80 bg-gray-700 text-white border-gray-600 p-4">
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold">Informações</h3>
+          <h3 className="text-lg font-semibold">Information</h3>
           
           <div className="space-y-3">
-            <h4 className="font-medium">Câmeras</h4>
+            <h4 className="font-medium">Cameras</h4>
             <p className="text-sm">
-              Clique na miniatura para expandir o vídeo da câmera. As câmeras mostram transmissão em tempo real com atraso de aproximadamente 5 segundos.
+              Click on the thumbnail to expand the camera video. Cameras show live streaming with approximately 5 seconds delay.
             </p>
           </div>
           
           <div className="space-y-3">
-            <h4 className="font-medium">Filtros</h4>
+            <h4 className="font-medium">Filters</h4>
             <p className="text-sm">
-              Use o botão de filtros para selecionar câmeras por local ou visualizar apenas câmeras com detecção de presença.
+              Use the filter button to select cameras by location or view only cameras with presence detection.
             </p>
           </div>
         </div>

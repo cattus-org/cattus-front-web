@@ -20,8 +20,8 @@ const login = async (credentials: LoginCredentials): Promise<LoginResponse> => {
             Cookies.set("token", data.data.token);
             return data as LoginResponse;
         } else {
-            toast.error(data.message || "Erro ao fazer login");
-            throw new Error(data.message || "Erro ao fazer login");
+            toast.error(data.message || "Error logging in");
+            throw new Error(data.message || "Error logging in");
         }
     } catch (error) {
         console.error("Login Error:", error);

@@ -54,19 +54,19 @@ const HomePage = () => {
   }, []);
 
   const getStatusText = useCallback((status?: string): string => {
-    if (!status) return 'Saudável';
+    if (!status) return 'Healthy';
     
     // Handle both old numeric values and new enum values
     switch (status) {
       // Old numeric values (legacy support)
-      case '0': return 'Saudável';
-      case '1': return 'Em atenção';
-      case '2': return 'Crítico';
+      case '0': return 'Healthy';
+      case '1': return 'Alert';
+      case '2': return 'Critical';
       // New enum values
-      case 'ok': return 'Saudável';
-      case 'alert': return 'Em atenção';
-      case 'danger': return 'Crítico';
-      default: return 'Saudável';
+      case 'ok': return 'Healthy';
+      case 'alert': return 'Alert';
+      case 'danger': return 'Critical';
+      default: return 'Healthy';
     }
   }, []);
 
@@ -102,13 +102,13 @@ const HomePage = () => {
       }
 
       const activityTitles: Record<string, string> = {
-        'eat': 'Alimentação',
-        'sleep': 'Soneca',
-        'defecate': 'Defecando',
-        'urinate': 'Urinando'
+        'eat': 'Eating',
+        'sleep': 'Napping',
+        'defecate': 'Defecating',
+        'urinate': 'Urinating'
       };
 
-      const locations = ['Área comum', 'Área de descanso', 'Quintal', 'Cozinha'];
+      const locations = ['Common area', 'Rest area', 'Yard', 'Kitchen'];
 
       const formattedActivities: ActivityItem[] = allActivities
         .filter((activity) => !!activity.cat)
@@ -116,7 +116,7 @@ const HomePage = () => {
           return {
             id: activity.id.toString(),
             title: activity.cat.name || activity.cat.petName || 'Unknown Cat',
-            subtitle: `${activity.cat.sex || activity.cat.petGender} · ${calculateAge(activity.cat.birthDate || activity.cat.petBirth)} anos`,
+            subtitle: `${activity.cat.sex || activity.cat.petGender} · ${calculateAge(activity.cat.birthDate || activity.cat.petBirth)} years old`,
             imageUrl: activity.cat.picture || activity.cat.petPicture || '/imgs/cat_sample.jpg',
             startedAt: activity.startedAt?.toString() || new Date().toISOString(),
             endedAt: activity.endedAt?.toString(),
@@ -240,25 +240,25 @@ const HomePage = () => {
   const actionButtons = [
     {
       icon: <Plus size={20} />,
-      label: 'ADICIONAR GATO',
+      label: 'ADD CAT',
       path: '/cats/add',
       color: 'bg-green-600 hover:bg-green-700'
     },
     {
       icon: <FileText size={20} />,
-      label: 'GERIR RELATÓRIOS',
+      label: 'MANAGE REPORTS',
       path: '/reports',
       color: 'bg-gray-700 hover:bg-gray-600'
     },
     {
       icon: <BarChart2 size={20} />,
-      label: 'VER ESTATÍSTICAS',
+      label: 'VIEW STATISTICS',
       path: '/stats',
       color: 'bg-gray-700 hover:bg-gray-600'
     },
     {
       icon: <DollarSign size={20} />,
-      label: 'GERENCIAR ASSINATURA',
+      label: 'MANAGE SUBSCRIPTION',
       path: '/membership',
       color: 'bg-gray-700 hover:bg-gray-600'
     }
@@ -275,8 +275,8 @@ const HomePage = () => {
       
       <div className="p-6 relative z-10">
         <div className="mb-8 pr-80">
-          <h1 className="text-3xl font-bold text-white mb-4">Bem vindo, {employeeName}</h1>
-          <p className="text-gray-400 mb-4">Use o menu lateral para navegar, a barra de pesquisa ou as opções abaixo:</p>
+          <h1 className="text-3xl font-bold text-white mb-4">Welcome, {employeeName}</h1>
+          <p className="text-gray-400 mb-4">Use the side menu to navigate, the search bar, or the options below:</p>
           
           <div className="flex flex-wrap gap-4">
             {actionButtons.map((button, index) => (
@@ -294,7 +294,7 @@ const HomePage = () => {
       
       <div className="mb-8 pr-80">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold text-white">Gatos marcados</h2>
+          <h2 className="text-xl font-semibold text-white">Marked cats</h2>
         </div>
         
         {loading.cats ? (
@@ -326,7 +326,7 @@ const HomePage = () => {
         ) : (
           <div className="bg-gray-800 rounded-md p-6 text-center">
             <p className="text-gray-400">
-              Para ver gatos aqui, marque um gato clicando na estrela no canto superior direito ou dentro da página de perfil de cada gato.
+              To see cats here, mark a cat by clicking the star in the top right corner or inside the profile page of each cat.
             </p>
           </div>
         )}
@@ -336,14 +336,14 @@ const HomePage = () => {
             onClick={() => navigate('/cats')} 
             className="text-gray-400 hover:text-white text-sm"
           >
-            Ver todos os gatos →
+            View all cats →
           </button>
         </div>
       </div>
       
       <div className="mb-8 pr-80">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold text-white">Câmeras instaladas</h2>
+          <h2 className="text-xl font-semibold text-white">Installed cameras</h2>
         </div>
         
         {loading.cameras ? (
@@ -364,7 +364,7 @@ const HomePage = () => {
         ) : (
           <div className="bg-gray-800 rounded-md p-6 text-center">
             <p className="text-gray-400">
-              Nenhuma câmera ativa encontrada.
+              No active cameras found.
             </p>
           </div>
         )}
@@ -374,7 +374,7 @@ const HomePage = () => {
             onClick={() => navigate('/cameras')} 
             className="text-gray-400 hover:text-white text-sm"
           >
-            Ver todas as câmeras →
+            View all cameras →
           </button>
         </div>
       </div>
@@ -390,13 +390,13 @@ const HomePage = () => {
             <ActivityList
               items={activities}
               maxHeight="calc(100vh - 180px)"
-              emptyMessage="Nenhuma atividade recente"
+              emptyMessage="No recent activity"
               loading={false}
             />
           ) : (
             <div className="flex-1 flex items-center justify-center p-4">
               <p className="text-gray-400 text-center">
-                Nenhuma atividade recente registrada.
+                No recent activity recorded.
               </p>
             </div>
           )}

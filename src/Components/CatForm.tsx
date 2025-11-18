@@ -110,7 +110,7 @@ const CatForm = () => {
           setIsLoading(false);
         } catch (error) {
           console.error('Error fetching cat data:', error);
-          toast.error('Erro ao carregar dados do gato');
+          toast.error('Error loading cat data');
           setIsLoading(false);
         }
       };
@@ -181,13 +181,13 @@ const CatForm = () => {
               formDataToSubmit.picture = imageUrl;
               console.log('Picture uploaded and URL set:', imageUrl);
             } else {
-              toast.error('Erro ao fazer upload da imagem');
+              toast.error('Error uploading image');
               setIsLoading(false);
               return;
             }
           } catch (error) {
             console.error('Error uploading image:', error);
-            toast.error('Erro ao fazer upload da imagem');
+            toast.error('Error uploading image');
             setIsLoading(false);
             return;
           }
@@ -208,7 +208,7 @@ const CatForm = () => {
         if (response.success && response.data) {
           const catData = Array.isArray(response.data) ? response.data[0] : response.data;
           const catId = catData.id;
-          toast.success('Gato cadastrado com sucesso!');       
+          toast.success('Cat registered successfully!');       
           
           // Update formData with returned cat data to show picture immediately
           setFormData({
@@ -226,7 +226,7 @@ const CatForm = () => {
             navigate(`/cats/${catId}`);
           }
         } else {
-          toast.error(response.message || 'Erro ao cadastrar gato');
+          toast.error(response.message || 'Error registering cat');
         }
       } 
       else if (id || formData._id) {
@@ -257,7 +257,7 @@ const CatForm = () => {
               }
             } catch (error) {
               console.error('Error uploading image during update:', error);
-              toast.error('Erro ao fazer upload da imagem');
+              toast.error('Error uploading image');
               setIsLoading(false);
               return;
             }
@@ -290,7 +290,7 @@ const CatForm = () => {
               });
             }
             
-            toast.success('Gato atualizado com sucesso!');
+            toast.success('Cat updated successfully!');
             
             if (andContinue) {
               if (activeSegment === 'basic') setActiveSegment('additional');
@@ -299,11 +299,11 @@ const CatForm = () => {
               navigate(`/cats/${updatedId}`);
             }
           } else {
-            toast.error(response.message || 'Erro ao atualizar gato');
+            toast.error(response.message || 'Error updating cat');
           }
         } catch (error) {
           console.error('Error updating cat:', error);
-          toast.error('Erro ao atualizar gato');
+          toast.error('Error updating cat');
         }
       }
       
@@ -317,7 +317,7 @@ const CatForm = () => {
 
   const handleSegmentChange = (segment: SegmentType) => {
     if (segment !== 'basic' && !isEditing) {
-      toast.warn('Salve as informações básicas primeiro');
+      toast.warn('Save basic information first');
       return;
     }
     
@@ -335,7 +335,7 @@ const CatForm = () => {
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-white">{isEditing ? 'Editar gato' : 'Adicionar gato'}</h1>
+        <h1 className="text-3xl font-bold text-white">{isEditing ? 'Edit cat' : 'Add cat'}</h1>
         <HoverCard>
                   <HoverCardTrigger asChild>
                     <Button variant="ghost" size="icon" className="h-6 w-6 text-gray-400 hover:text-white hover:bg-transparent">
@@ -343,7 +343,7 @@ const CatForm = () => {
                     </Button>
                   </HoverCardTrigger>
                   <HoverCardContent className="w-80 bg-gray-700 text-white border-gray-600 p-4">
-                    <p>{isEditing ? 'A edição de gatos permite preencher novos dados ou alterar os existentes' : 'O cadastro de gato possui 4 etapas, porém só a primeira é obrigatória para listar o gato no sistema. As demais podem ser preenchidas posteriormente.'}</p>
+                    <p>{isEditing ? 'Editing cats allows you to fill in new data or change existing data' : 'Cat registration has 4 steps, but only the first one is required to list the cat in the system. The others can be filled in later.'}</p>
                   </HoverCardContent>
                 </HoverCard>
       </div>
@@ -371,7 +371,7 @@ const CatForm = () => {
             }`}
             onClick={() => handleSegmentChange('basic')}
           >
-            Dados básicos e foto de perfil
+            Basic information and profile photo
           </button>
           
           <button
@@ -389,7 +389,7 @@ const CatForm = () => {
             onClick={() => handleSegmentChange('additional')}
             disabled={!isEditing}
           >
-            Peso, Comorbidades e Vacinas
+            Weight, Comorbidities and Vaccines
           </button>
         </div>
 

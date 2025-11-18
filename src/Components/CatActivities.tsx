@@ -82,7 +82,7 @@ const CatActivities = ({ isExpanded, onToggleExpand, activities = [] }: CatActiv
           className="p-3 bg-[#3c8054] flex justify-between items-center cursor-pointer"
           onClick={onToggleExpand}
         >
-          <h2 className="text-lg font-semibold text-white">Atividades</h2>
+          <h2 className="text-lg font-semibold text-white">Activities</h2>
           <ChevronDown className="text-white" size={20} />
         </div>
       </div>
@@ -95,7 +95,7 @@ const CatActivities = ({ isExpanded, onToggleExpand, activities = [] }: CatActiv
         className="p-3 bg-[#3c8054] flex justify-between items-center cursor-pointer"
         onClick={onToggleExpand}
       >
-        <h2 className="text-lg font-semibold text-white">Atividades</h2>
+        <h2 className="text-lg font-semibold text-white">Activities</h2>
         <ChevronUp className="text-white" size={20} />
       </div>
 
@@ -104,10 +104,10 @@ const CatActivities = ({ isExpanded, onToggleExpand, activities = [] }: CatActiv
           <div className="w-full md:w-1/4">
             <Select value={filterType} onValueChange={handleFilterTypeChange}>
               <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white">
-                <SelectValue placeholder="Tipo de atividade" />
+                <SelectValue placeholder="Activity type" />
               </SelectTrigger>
               <SelectContent className="bg-gray-800 text-white border-gray-600">
-                <SelectItem value="all">Todas as atividades</SelectItem>
+                <SelectItem value="all">All activities</SelectItem>
                 {activityTypes.filter(type => type !== 'all').map(type => (
                   <SelectItem key={type} value={type}>{type}</SelectItem>
                 ))}
@@ -181,7 +181,7 @@ const CatActivities = ({ isExpanded, onToggleExpand, activities = [] }: CatActiv
               ) : (
                 <TableRow>
                   <TableCell colSpan={6} className="text-center py-4 text-gray-400">
-                    Nenhuma atividade encontrada
+                    No activities found
                   </TableCell>
                 </TableRow>
               )}

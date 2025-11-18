@@ -24,7 +24,7 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({
 
   const handleSubmit = async () => {
     if (!feedback.trim()) {
-      toast.error('Por favor, escreva seu feedback antes de enviar.');
+      toast.error('Please write your feedback before sending.');
       return;
     }
 
@@ -33,12 +33,12 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({
     try {
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      toast.success('Feedback enviado com sucesso!');
+      toast.success('Feedback sent successfully!');
       setFeedback('');
       onOpenChange(false);
     } catch (error) {
       console.error('Error submitting feedback:', error);
-      toast.error('Erro ao enviar feedback. Tente novamente mais tarde.');
+      toast.error('Error sending feedback. Try again later.');
     } finally {
       setIsSubmitting(false);
     }
@@ -48,16 +48,16 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="bg-gray-800 text-white border-gray-700 max-w-md">
         <DialogHeader className="flex items-center justify-between">
-          <DialogTitle className="text-xl font-semibold">Enviar Feedback</DialogTitle>
+          <DialogTitle className="text-xl font-semibold">Send Feedback</DialogTitle>
         </DialogHeader>
 
         <div className="mt-4 mb-4">
           <label className="block text-white mb-2">
-            Nos dê seu feedback sobre o sistema:
+            Give us your feedback about the system:
           </label>
           <Textarea
             className="bg-gray-700 border-gray-600 text-white h-32 resize-none"
-            placeholder="Escreva suas sugestões, problemas ou dúvidas aqui..."
+            placeholder="Write your suggestions, problems, or questions here..."
             value={feedback}
             onChange={(e) => setFeedback(e.target.value)}
           />
@@ -69,7 +69,7 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({
               variant="outline" 
               className="text-black border-gray-600 hover:bg-purple-700 hover:text-white"
             >
-              Cancelar
+              Cancel
             </Button>
           </DialogClose>
           <Button
@@ -77,7 +77,7 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({
             className="bg-green-600 hover:bg-green-700 text-white"
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Enviando...' : 'Enviar'}
+            {isSubmitting ? 'Sending...' : 'Send'}
           </Button>
         </div>
       </DialogContent>

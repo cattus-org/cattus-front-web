@@ -6,7 +6,7 @@ const getAnimalReport = async (animalId: string, offset: number = 0, limit: numb
   try {
     const token = Cookies.get('token');
     if (!token) {
-      toast.error('Sessão expirada. Faça login novamente.');
+      toast.error('Session expired. Please login again.');
       return;
     }
     
@@ -28,7 +28,7 @@ const getAnimalReport = async (animalId: string, offset: number = 0, limit: numb
     const reportUrl = data.data?.url;
     
     if (!reportUrl) {
-      throw new Error('URL do relatório não encontrada na resposta');
+      throw new Error('Report URL not found in response');
     }
 
     // Open the S3 URL directly to download the PDF
@@ -45,7 +45,7 @@ const getAnimalReport = async (animalId: string, offset: number = 0, limit: numb
     return;
   } catch (error) {
     console.error('Error generating report:', error);
-    toast.error(error instanceof Error ? error.message : 'Erro ao gerar relatório');
+    toast.error(error instanceof Error ? error.message : 'Error generating report');
     throw error;
   }
 };

@@ -18,7 +18,7 @@ const LoadingSplash: React.FC = () => {
         <img src="/imgs/logo_extended.png" alt="Cattus" className="h-20" />
       </div>
       
-      <p className="text-white mb-6">Carregando o Painel de Administração</p>
+      <p className="text-white mb-6">Loading the Admin Panel</p>
       
       <div className="w-8 h-8 border-4 border-gray-600 border-t-white rounded-full animate-spin"></div>
     </div>

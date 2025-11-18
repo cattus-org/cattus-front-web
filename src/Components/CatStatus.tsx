@@ -250,7 +250,7 @@ const CatStatus = ({ catId, isExpanded, onToggleExpand }: CatStatusProps) => {
                       onValueChange={(value) => handlePeriodChange(section.id, parseInt(value))}
                     >
                       <SelectTrigger className="w-full bg-gray-700 border-gray-600 text-white">
-                        <SelectValue placeholder="Selecione o período" />
+                        <SelectValue placeholder="Select the period" />
                       </SelectTrigger>
                     <SelectContent className="bg-gray-800 text-white border-gray-600">
                       <SelectItem value="3">3 dias</SelectItem>
@@ -294,7 +294,7 @@ const CatStatus = ({ catId, isExpanded, onToggleExpand }: CatStatusProps) => {
                   </div>
                 ) : (
                   <div className="flex items-center justify-center">
-                    <span>Nenhuma mudança registrada</span>
+                    <span>No changes recorded</span>
                   </div>
                 )}
               </div>

@@ -91,21 +91,21 @@ const ProfilePopup = ({ isOpen, onClose, userName = 'Usuário' }: ProfilePopupPr
               onClick={handleProfileClick}
             >
               <User size={16} className="mr-2" />
-              <span>Perfil</span>
+              <span>Profile</span>
             </button>
           <button 
             className="flex items-center w-full px-4 py-2 text-sm text-gray-200 hover:bg-gray-800"
             onClick={handleViewComments}
           >
             <MessageSquare size={16} className="mr-2" />
-            <span>Comentários</span>
+            <span>Comments</span>
           </button>
           <button 
             className="flex items-center w-full px-4 py-2 text-sm text-gray-200 hover:bg-gray-800"
             onClick={handleOpenFeedback}
           >
             <HelpCircle size={16} className="mr-2" />
-            <span>Enviar Feedback</span>
+            <span>Send Feedback</span>
           </button>
           <div className="border-t border-gray-800 my-1"></div>
           <button 
@@ -113,7 +113,7 @@ const ProfilePopup = ({ isOpen, onClose, userName = 'Usuário' }: ProfilePopupPr
             onClick={handleLogout}
           >
             <LogOut size={16} className="mr-2" />
-            <span>Sair</span>
+            <span>Logout</span>
           </button>
         </div>
       </div>

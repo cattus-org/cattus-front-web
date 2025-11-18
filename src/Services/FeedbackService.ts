@@ -20,7 +20,7 @@ const submitFeedback = async (data: FeedbackData): Promise<ApiResponse> => {
     };
   } catch (error) {
     console.error('Error submitting feedback:', error);
-    toast.error('Erro ao enviar feedback. Tente novamente mais tarde.');
+    toast.error('Error sending feedback. Try again later.');
     throw error;
   }
 };

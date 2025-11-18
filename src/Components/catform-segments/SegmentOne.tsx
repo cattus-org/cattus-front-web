@@ -56,7 +56,7 @@ const SegmentOne: React.FC<SegmentOneProps> = ({
   return (
     <div className="bg-gray-900 rounded-md overflow-hidden">
       <div className="p-3 bg-[#3c8054] flex justify-between items-center">
-        <h2 className="text-lg font-semibold text-white">Informações básicas e foto de perfil</h2>
+        <h2 className="text-lg font-semibold text-white">Basic information and profile photo</h2>
       </div>
 
       <div className="p-6 bg-[#324250]">
@@ -70,7 +70,7 @@ const SegmentOne: React.FC<SegmentOneProps> = ({
                 <>
                   <img 
                     src={imagePreview} 
-                    alt="Prévia da foto do gato" 
+                    alt="Cat photo preview" 
                     className="w-full h-full object-cover rounded-md"
                   />
                   <div className="absolute inset-0 transition-all duration-300 flex items-center justify-center">
@@ -89,7 +89,7 @@ const SegmentOne: React.FC<SegmentOneProps> = ({
                       >
                         <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
                       </svg>
-                      Alterar imagem
+                      Change image
                     </div>
                   </div>
                 </>
@@ -115,8 +115,8 @@ const SegmentOne: React.FC<SegmentOneProps> = ({
                     <path d="M17 22H7"></path>
                     <path d="m15 6-3-4-3 4"></path>
                   </svg>
-                  <p className="text-sm mb-2">Arraste ou clique aqui</p>
-                  <p className="text-sm">para subir um arquivo</p>
+                  <p className="text-sm mb-2">Drag or click here</p>
+                  <p className="text-sm">to upload a file</p>
                 </div>
               )}
               <input
@@ -128,15 +128,15 @@ const SegmentOne: React.FC<SegmentOneProps> = ({
                 onChange={handleFileChange}
               />
             </div>
-            <p className="mt-2 text-center text-sm text-gray-400">Foto de perfil</p>
+            <p className="mt-2 text-center text-sm text-gray-400">Profile photo</p>
           </div>
 
           <div className="space-y-6">
             <div>
-            <p className="text-white mb-2">Nome*</p>
+            <p className="text-white mb-2">Name*</p>
               <Input
                 id="pet-name"
-                placeholder="Nome do gato"
+                placeholder="Cat name"
                 className="bg-gray-700 border-gray-600 text-white"
                 value={formData.name || formData.petName || ''}
                 onChange={(e) => handleChange('name', e.target.value)}
@@ -146,7 +146,7 @@ const SegmentOne: React.FC<SegmentOneProps> = ({
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-              <p className="mt-1 text-sm text-gray-400">Data de Nascimento*</p>
+              <p className="mt-1 text-sm text-gray-400">Birth Date*</p>
                 <Input
                   id="pet-birth"
                   type="date"
@@ -158,27 +158,27 @@ const SegmentOne: React.FC<SegmentOneProps> = ({
               </div>
 
               <div>
-              <p className="mt-1 text-sm text-gray-400">Sexo*</p>
+              <p className="mt-1 text-sm text-gray-400">Gender*</p>
                 <Select
                   value={formData.sex || formData.petGender || ''}
                   onValueChange={(value) => handleChange('sex', value)}
                 >
                   <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
-                    <SelectValue placeholder="Selecione" />
+                    <SelectValue placeholder="Select" />
                   </SelectTrigger>
                   <SelectContent className="bg-gray-800 text-white border-gray-600">
-                    <SelectItem value="macho">Macho</SelectItem>
-                    <SelectItem value="fêmea">Fêmea</SelectItem>
+                    <SelectItem value="macho">Male</SelectItem>
+                    <SelectItem value="fêmea">Female</SelectItem>
                   </SelectContent>
                 </Select>           
               </div>
             </div>
 
             <div>
-            <p className="mt-1 text-sm text-gray-400">Observações</p>
+            <p className="mt-1 text-sm text-gray-400">Observations</p>
               <Textarea
                 id="pet-obs"
-                placeholder="Digite aqui as observações sobre o gato..."
+                placeholder="Type here any observations about the cat..."
                 className="bg-gray-700 border-gray-600 text-white h-32 resize-none"
                 value={formData.observations || ''}
                 onChange={(e) => handleChange('observations', e.target.value)}
@@ -189,7 +189,7 @@ const SegmentOne: React.FC<SegmentOneProps> = ({
         </div>
 
         <div className="mt-4 text-sm text-gray-300">
-          <p>Itens com * são OBRIGATÓRIOS</p>
+          <p>Fields marked with * are REQUIRED</p>
         </div>
 
         <div className="mt-6 flex justify-end space-x-4">
@@ -198,14 +198,14 @@ const SegmentOne: React.FC<SegmentOneProps> = ({
             className="px-8 py-2 bg-gray-700 hover:bg-gray-600 text-white"
             disabled={isLoading}
           >
-            SALVAR E FINALIZAR
+            SAVE AND FINALIZE
           </Button>
           <Button
             onClick={onSaveAndContinue}
             className="px-8 py-2 bg-green-600 hover:bg-green-700 text-white"
             disabled={isLoading}
           >
-            SALVAR E PROSSEGUIR
+            SAVE AND CONTINUE
           </Button>
         </div>
       </div>

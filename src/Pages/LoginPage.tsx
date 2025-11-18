@@ -32,7 +32,7 @@ const LoginPage: React.FC = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!credentials.email || !credentials.password) {
-      setError("Por favor, preencha todos os campos");
+      setError("Please fill in all fields");
       return;
     }
 
@@ -45,11 +45,11 @@ const LoginPage: React.FC = () => {
         Cookies.set("token", response.data.token, { expires: rememberMe ? 7 : 1 });
         navigate('/loading');
       } else {
-        setError(response.message || "Erro ao fazer login");
+        setError(response.message || "Error logging in");
       }
     } catch (error) {
       console.error("Login error:", error);
-      setError(error instanceof Error ? error.message : "Falha ao tentar fazer login. Credenciais inválidas.");
+      setError(error instanceof Error ? error.message : "Failed to login. Invalid credentials.");
     } finally {
       setIsLoading(false);
     }
@@ -57,7 +57,7 @@ const LoginPage: React.FC = () => {
 
   const handleForgotPassword = async () => {
     if (!forgotPasswordEmail) {
-      setError("Por favor, digite seu email");
+      setError("Please enter your email");
       return;
     }
 
@@ -65,12 +65,12 @@ const LoginPage: React.FC = () => {
       setIsLoading(true);
       setError(null);
       await EmployeeService.forgotPassword(forgotPasswordEmail);
-      toast.success("Se o email existir, um link de redefinição foi enviado!");
+      toast.success("If the email exists, a reset link has been sent!");
       setShowForgotPassword(false);
       setForgotPasswordEmail('');
     } catch (error) {
       console.error("Forgot password error:", error);
-      setError(error instanceof Error ? error.message : "Erro ao enviar email de redefinição");
+      setError(error instanceof Error ? error.message : "Error sending password reset email");
     } finally {
       setIsLoading(false);
     }
@@ -82,8 +82,8 @@ const LoginPage: React.FC = () => {
       <div className="hidden md:flex md:w-1/2 relative bg-cover bg-center" style={{ backgroundImage: "url('/imgs/login_background.jpg')" }}>
         <div className="absolute bottom-10 left-10 text-white">
           <p className="text-lg mb-2">
-            Baixe o app para celular e acompanhe<br />
-            seus gatos em qualquer lugar
+            Download the mobile app and keep track of<br />
+            your cats anywhere
           </p>
           <button className="flex items-center px-4 py-2 bg-black bg-opacity-50 rounded-md text-white">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
@@ -112,21 +112,21 @@ const LoginPage: React.FC = () => {
             )}
             
             <div className="space-y-2">
-              <label htmlFor="email" className="block text-white">E-mail</label>
+              <label htmlFor="email" className="block text-white">Email</label>
               <Input
                 id="email"
                 name="email"
                 type="email"
                 value={credentials.email}
                 onChange={handleInputChange}
-                placeholder="email@provedor.com"
+                placeholder="email@provider.com"
                 className={`w-full bg-gray-800 border-gray-700 text-white ${error ? 'border-red-500' : ''}`}
                 required
               />
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="password" className="block text-white">Senha</label>
+              <label htmlFor="password" className="block text-white">Password</label>
               <Input
                 id="password"
                 name="password"
@@ -147,7 +147,7 @@ const LoginPage: React.FC = () => {
                   id="remember-me"
                 />
                 <label htmlFor="remember-me" className="text-sm text-white">
-                  Lembrar de mim
+                  Remember me
                 </label>
               </div>
 
@@ -156,7 +156,7 @@ const LoginPage: React.FC = () => {
                 className="text-sm text-white hover:underline"
                 onClick={() => setShowForgotPassword(true)}
               >
-                Esqueci a senha?
+                Forgot password?
               </button>
             </div>
 
@@ -165,7 +165,7 @@ const LoginPage: React.FC = () => {
               className="w-full bg-green-600 hover:bg-green-700 text-white py-2"
               disabled={isLoading}
             >
-              {isLoading ? "ENTRANDO..." : "ENTRAR"}
+              {isLoading ? "LOGGING IN..." : "LOGIN"}
             </Button>
 
             <Button 
@@ -173,7 +173,7 @@ const LoginPage: React.FC = () => {
               className="w-full border border-purple-600 text-white py-2 bg-transparent hover:bg-purple-900"
               disabled={isLoading}
             >
-              ACESSAR COM QR CODE
+              ACCESS WITH QR CODE
             </Button>
           </form>
 
@@ -181,15 +181,15 @@ const LoginPage: React.FC = () => {
           {showForgotPassword && (
             <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
               <div className="bg-gray-800 p-6 rounded-lg w-full max-w-md mx-4">
-                <h3 className="text-white text-lg font-semibold mb-4">Recuperar Senha</h3>
+                <h3 className="text-white text-lg font-semibold mb-4">Reset Password</h3>
                 <p className="text-gray-300 mb-4">
-                  Digite seu email para receber um link de redefinição de senha.
+                  Enter your email to receive a password reset link.
                 </p>
                 
                 <div className="space-y-4">
                   <Input
                     type="email"
-                    placeholder="email@provedor.com"
+                    placeholder="email@provider.com"
                     value={forgotPasswordEmail}
                     onChange={(e) => setForgotPasswordEmail(e.target.value)}
                     className="w-full bg-gray-700 border-gray-600 text-white"
@@ -201,7 +201,7 @@ const LoginPage: React.FC = () => {
                       disabled={isLoading}
                       className="flex-1 bg-green-600 hover:bg-green-700 text-white"
                     >
-                      {isLoading ? "ENVIANDO..." : "ENVIAR"}
+                      {isLoading ? "SENDING..." : "SEND"}
                     </Button>
                     <Button
                       onClick={() => {
@@ -212,7 +212,7 @@ const LoginPage: React.FC = () => {
                       disabled={isLoading}
                       className="flex-1 bg-gray-600 hover:bg-gray-700 text-white"
                     >
-                      CANCELAR
+                      CANCEL
                     </Button>
                   </div>
                 </div>

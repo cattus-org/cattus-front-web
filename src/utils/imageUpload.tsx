@@ -22,13 +22,13 @@ export const uploadImageFile = async (file: File): Promise<string | null> => {
       console.log('Image uploaded successfully, URL:', response.data.url);
       return response.data.url;
     } else {
-      toast.error(response.message || 'Erro ao fazer upload da imagem');
-      console.error('Erro ao fazer upload de imagem:', response);
+      toast.error(response.message || 'Error uploading image');
+      console.error('Error uploading image:', response);
       return null;
     }
   } catch (error) {
-    console.error('Erro ao fazer upload da imagem: ', error);
-    toast.error('Erro ao fazer upload da imagem. Tente novamente.');
+    console.error('Error uploading image: ', error);
+    toast.error('Error uploading image. Try again.');
     return null;
   }
 };
